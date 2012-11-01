@@ -1,0 +1,10 @@
+name: totp
+version: 0.0.1
+description: >
+  RFC6238 Time-Based One-Time Password / Google Authenticator Library
+author: Yulian Kuncheff <yulian@kuncheff.com>
+homepage: https://github.com/Daegalus/dart-totp
+dependencies:
+  base32: any
+  unittest:
+    sdk: unittest
