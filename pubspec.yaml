@@ -6,5 +6,4 @@ author: Yulian Kuncheff <yulian@kuncheff.com>
 homepage: https://github.com/Daegalus/dart-totp
 dependencies:
   base32: any
-  unittest:
-    sdk: unittest
+  unittest: any
