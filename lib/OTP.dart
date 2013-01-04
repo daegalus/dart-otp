@@ -3,24 +3,32 @@ import 'dart:math';
 import 'dart:crypto';
 
 main() {
-  print(OTP.generateCode("JBSWY3DPEHPK3PXP", (new Date.now()).toUtc().millisecondsSinceEpoch));
+  print(OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", (new Date.now()).toUtc().millisecondsSinceEpoch));
 }
 
 class OTP {
-  static int generateCode(String secret, int time, {int length: 6}){
-    length = (length <=8 && length > 0) ? length : 6;
+  static int generateTOTPCode(String secret, int time, {int length: 6}) {
     time = (((time ~/ 1000).round())~/30).floor();
+    return _generateCode(secret, time, length);
+  }
+  
+  static int generateHOTPCode(String secret, int counter, {int length: 6}) {
+    return _generateCode(secret, counter, length);
+  }
+  
+  static int _generateCode(String secret, int time, int length){
+    length = (length <=8 && length > 0) ? length : 6;
+    
     
     var secretList = base32.decode(secret);
     var timebytes = _int2bytes(time);
     
-    var hmac = new HMAC(new SHA1(), timebytes);
-    hmac.update(secretList);
+    var hmac = new HMAC(new SHA1(), secretList);
+    hmac.update(timebytes);
     var hash = hmac.digest();
  
     int offset = hash[hash.length - 1] & 0xf;
-    print("hash ${CryptoUtils.bytesToHex(hash)}");
-    print("offset ${offset}");
+
     int binary = ((hash[offset] & 0x7f) << 24) |
                  ((hash[offset + 1] & 0xff) << 16) |
                  ((hash[offset + 2] & 0xff) << 8) |
