@@ -27,10 +27,8 @@ class OTP {
                  (hash[offset + 3] & 0xff);
     
     print(binary);
-    
-    var otp = binary.toString();
-    otp = otp.substring(otp.length-length, otp.length);
-    return int.parse(otp);
+
+    return binary % pow(10,length);
   }
   
   static String randomSecret() {
