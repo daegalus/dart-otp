@@ -1,8 +1,6 @@
 
-packages/base32
-
-packages/totp
-
-packages/unittest
+packages/
 
 *.lock
+
+docs/
