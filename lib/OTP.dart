@@ -1,10 +1,7 @@
-import '../packages/base32/base32.dart';
+library otp;
+import 'package:base32/base32.dart';
 import 'dart:math';
 import 'dart:crypto';
-
-main() {
-  print(OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", (new DateTime.now()).toUtc().millisecondsSinceEpoch));
-}
 
 class OTP {
   static int generateTOTPCode(String secret, int time, {int length: 6}) {
@@ -24,8 +21,8 @@ class OTP {
     var timebytes = _int2bytes(time);
 
     var hmac = new HMAC(new SHA1(), secretList);
-    hmac.update(timebytes);
-    var hash = hmac.digest();
+    hmac.add(timebytes);
+    var hash = hmac.close();
 
     int offset = hash[hash.length - 1] & 0xf;
 
@@ -33,8 +30,6 @@ class OTP {
                  ((hash[offset + 1] & 0xff) << 16) |
                  ((hash[offset + 2] & 0xff) << 8) |
                  (hash[offset + 3] & 0xff);
-
-    print(binary);
 
     return binary % pow(10,length);
   }
