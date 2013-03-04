@@ -1,8 +1,7 @@
 import "package:unittest/unittest.dart";
-import 'package:otp/OTP.dart';
+import 'package:otp/otp.dart';
 
 main() {
-  var totp = new OTP();
   final int HALFMINUTES = 45410085;
   final int SECONDS = HALFMINUTES*30;
   final int TIME = SECONDS*1000;
