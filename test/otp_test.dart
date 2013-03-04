@@ -1,5 +1,5 @@
 import "package:unittest/unittest.dart";
-import 'package:otp/otp.dart';
+import 'package:otp/OTP.dart';
 
 main() {
   var totp = new OTP();

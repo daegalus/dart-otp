@@ -1,4 +1,4 @@
-[![](https://drone.io/daegalus/dart-otp/status.png)](https://drone.io/daegalus/dart-otp/latest)
+[![](https://drone.io/github.com/daegalus/dart-otp/status.png)](https://drone.io/github.com/daegalus/dart-otp/latest)
 
 # dart-otp
 
