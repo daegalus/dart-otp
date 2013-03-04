@@ -68,5 +68,8 @@ In Browser
 N/A
 
 ## Release notes
+v0.0.2
+- No functionality changes, just fixing a bad file state it git and in the package involving the case of the file.
+
 v0.0.1
 - Initial Documented Release
