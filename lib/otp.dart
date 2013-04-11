@@ -47,15 +47,15 @@ class OTP {
 
   static String _dec2hex(int s) {
     var st = s.round().toRadixString(16);
-    return (st.length % 2 == 0) ? st : '0'.concat(st);
+    return (st.length % 2 == 0) ? st : '0'+st;
   }
 
   static String _leftpad(String str, int len, String pad) {
     var padded = '';
     for(int i = str.length; i < len; i++) {
-      padded = padded.concat(pad);
+      padded = padded+pad;
     }
-    return padded.concat(str);
+    return padded+str;
   }
 
   static List _hex2bytes(hex) {
