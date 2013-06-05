@@ -1,6 +1,6 @@
 library otp;
-import 'dart:crypto';
 import 'dart:math';
+import 'package:crypto/crypto.dart';
 import 'package:base32/base32.dart';
 
 class OTP {

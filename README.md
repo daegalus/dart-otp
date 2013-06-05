@@ -16,7 +16,7 @@ Features:
 pub.dartlang.org: (you can use 'any' instead of a version if you just want the latest always)
 ```yaml
 dependencies:
-  otp: 0.0.3
+  otp: 0.0.4
 ```
 
 ```dart
@@ -68,6 +68,9 @@ In Browser
 N/A
 
 ## Release notes
+v0.0.4
+- Fixing crypto library.
+
 v0.0.3
 - Fixing language changes.
 
