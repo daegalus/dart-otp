@@ -1,4 +1,4 @@
-[![](https://drone.io/github.com/daegalus/dart-otp/status.png)](https://drone.io/github.com/daegalus/dart-otp/latest)
+[![Build Status](https://travis-ci.org/Daegalus/dart-otp.svg?branch=master)](https://travis-ci.org/Daegalus/dart-otp)
 
 # dart-otp
 

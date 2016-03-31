@@ -1,6 +1,6 @@
 
 packages/
-
+.packages
 *.lock
 out/
 docs/
