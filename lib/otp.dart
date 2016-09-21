@@ -20,9 +20,8 @@ class OTP {
     var secretList = base32.decode(secret);
     var timebytes = _int2bytes(time);
 
-    var hmac = new HMAC(new SHA1(), secretList);
-    hmac.add(timebytes);
-    var hash = hmac.close();
+    var hmac = new Hmac(sha1, secretList);
+    var hash = hmac.convert(timebytes).bytes;
 
     int offset = hash[hash.length - 1] & 0xf;
 
