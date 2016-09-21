@@ -1,12 +1,12 @@
 name: otp
-version: 0.1.0
+version: 0.2.0
 author: Yulian Kuncheff <yulian@kuncheff.com>
 description: RFC6238 Time-Based One-Time Password / Google Authenticator Library
 homepage: https://github.com/Daegalus/dart-otp
 environment:
   sdk: ">=1.13.0 <2.0.0"
 dependencies:
-  crypto: "<=0.10.0"
+  crypto: ^2.0.0
   base32: any
 
 dev_dependencies:
