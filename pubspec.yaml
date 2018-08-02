@@ -6,7 +6,7 @@ homepage: https://github.com/Daegalus/dart-otp
 environment:
   sdk: ">=1.13.0 <2.0.0"
 dependencies:
-  crypto: ^2.0.0
+  crypto: ^2.0.3
   base32: any
 
 dev_dependencies:
