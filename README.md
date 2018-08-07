@@ -17,14 +17,14 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 1.0.0
+  otp: 1.0.1
 ```
 
 ```dart
 #import('package:otp/otp.dart');
 ```
 
-Start encoding/decoding ...
+Start generating tokenss.
 
 ```dart
 // Generate TOTP code.
@@ -42,7 +42,7 @@ Generate a code for the provided secret and time.
 
 - `secret` - (String) A Base32 String.
 - `currentTime` - (int) The current time in milliseconds.
-- `length` - (int) the length of the resulting code. Either 6 or 8.
+- `length` - (int) the length of the resulting code.
 
 Returns an `int` code.
 
@@ -52,7 +52,7 @@ Generate a code for the provided secret and time.
 
 - `secret` - (String) A Base32 String.
 - `counter` - (int) An int counter.
-- `length` - (int) the length of the resulting code. Either 6 or 8.
+- `length` - (int) the length of the resulting code.
 
 Returns an `int` code.
 

@@ -1,3 +1,11 @@
+v1.0.1
+
+- Cleanup and remove dead code
+
+v1.0.0
+
+- Dart 2.0 updates
+
 v0.1.0
 
 - Dart 1.0 Readiness
