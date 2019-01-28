@@ -1,3 +1,7 @@
+v1.0.2
+
+- Add new TOTP interval parameters (optional)
+
 v1.0.1
 
 - Cleanup and remove dead code
