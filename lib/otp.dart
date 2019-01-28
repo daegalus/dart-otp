@@ -5,8 +5,8 @@ import 'package:crypto/crypto.dart';
 import 'package:base32/base32.dart';
 
 class OTP {
-  static int generateTOTPCode(String secret, int time, {int length = 6}) {
-    time = (((time ~/ 1000).round()) ~/ 30).floor();
+  static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30}) {
+    time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length);
   }
 
