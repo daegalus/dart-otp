@@ -5,22 +5,22 @@ import 'package:crypto/crypto.dart';
 import 'package:base32/base32.dart';
 
 class OTP {
-  static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30}) {
+  static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA1}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
-    return _generateCode(secret, time, length);
+    return _generateCode(secret, time, length, getAlgorithm(algorithm));
   }
 
-  static int generateHOTPCode(String secret, int counter, {int length = 6}) {
-    return _generateCode(secret, counter, length);
+  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+    return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
-  static int _generateCode(String secret, int time, int length) {
+  static int _generateCode(String secret, int time, int length, Hash algorithm) {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
     var timebytes = _int2bytes(time);
 
-    var hmac = Hmac(sha1, secretList);
+    var hmac = Hmac(algorithm, secretList);
     var hash = hmac.convert(timebytes).bytes;
 
     int offset = hash[hash.length - 1] & 0xf;
@@ -54,4 +54,19 @@ class OTP {
     }
     return byteArray;
   }
+
+  static Hash getAlgorithm(Algorithm algorithm) {
+    switch(algorithm) {
+      case Algorithm.SHA256:
+        return sha256;
+      case Algorithm.SHA512:
+        //return sha512;
+      default:
+        return sha1;
+    }
+  }
+}
+
+enum Algorithm {
+  SHA1, SHA256, SHA512
 }
