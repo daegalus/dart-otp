@@ -60,7 +60,7 @@ class OTP {
       case Algorithm.SHA256:
         return sha256;
       case Algorithm.SHA512:
-        //return sha512;
+        //TODO: implement
       default:
         return sha1;
     }

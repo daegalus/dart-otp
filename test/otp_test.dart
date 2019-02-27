@@ -16,6 +16,11 @@ main() {
       var code = OTP.generateHOTPCode("JBSWY3DPEHPK3PXP", 7);
       expect(code, equals(449891));
     });
+
+    test('Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA256', () {
+      var code = OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", TIME, algorithm: Algorithm.SHA256);
+      expect(code, equals(182937));
+    });
   });
 }
 
