@@ -3,11 +3,7 @@ library otp;
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:base32/base32.dart';
-import "package:pointycastle/pointycastle.dart";
-import "package:pointycastle/digests/sha512.dart";
-import "package:pointycastle/digests/sha256.dart";
-import "package:pointycastle/digests/sha1.dart";
-import "package:pointycastle/macs/hmac.dart";
+import 'package:pointycastle/pointycastle.dart';
 
 class OTP {
   static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA1}) {
@@ -19,13 +15,13 @@ class OTP {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
-  static int _generateCode(String secret, int time, int length, Digest digest) {
+  static int _generateCode(String secret, int time, int length, Mac mac) {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
     var timebytes = _int2bytes(time);
 
-    var hmac = HMac(digest, 64)..init(KeyParameter(secretList));
+    var hmac = mac..init(KeyParameter(secretList));
     var hash = hmac.process(timebytes);
 
     int offset = hash[hash.length - 1] & 0xf;
@@ -60,18 +56,22 @@ class OTP {
     return byteArray;
   }
 
-  static Digest getAlgorithm(Algorithm algorithm) {
+  static Mac getAlgorithm(Algorithm algorithm) {
     switch(algorithm) {
+      case Algorithm.SHA224:
+        return Mac('SHA-224/HMAC');
       case Algorithm.SHA256:
-        return SHA256Digest();
+        return Mac('SHA-256/HMAC');
+      case Algorithm.SHA384:
+        return Mac('SHA-384/HMAC');
       case Algorithm.SHA512:
-        return SHA512Digest();
+        return Mac('SHA-512/HMAC');
       default:
-        return SHA1Digest();
+        return Mac('SHA-1/HMAC');
     }
   }
 }
 
 enum Algorithm {
-  SHA1, SHA256, SHA512
+  SHA1, SHA224, SHA256, SHA384, SHA512
 }
