@@ -1,8 +1,13 @@
 library otp;
 
 import 'dart:math';
-import 'package:crypto/crypto.dart';
+import 'dart:typed_data';
 import 'package:base32/base32.dart';
+import "package:pointycastle/pointycastle.dart";
+import "package:pointycastle/digests/sha512.dart";
+import "package:pointycastle/digests/sha256.dart";
+import "package:pointycastle/digests/sha1.dart";
+import "package:pointycastle/macs/hmac.dart";
 
 class OTP {
   static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA1}) {
@@ -14,14 +19,14 @@ class OTP {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
-  static int _generateCode(String secret, int time, int length, Hash algorithm) {
+  static int _generateCode(String secret, int time, int length, Digest digest) {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
     var timebytes = _int2bytes(time);
 
-    var hmac = Hmac(algorithm, secretList);
-    var hash = hmac.convert(timebytes).bytes;
+    var hmac = HMac(digest, 64)..init(KeyParameter(secretList));
+    var hash = hmac.process(timebytes);
 
     int offset = hash[hash.length - 1] & 0xf;
 
@@ -44,9 +49,9 @@ class OTP {
     return base32.encode(bytes);
   }
 
-  static List _int2bytes(int long) {
+  static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
-    var byteArray = [0, 0, 0, 0, 0, 0, 0, 0];
+    var byteArray = Uint8List(8);
     for (var index = byteArray.length - 1; index >= 0; index--) {
       var byte = long & 0xff;
       byteArray[index] = byte;
@@ -55,14 +60,14 @@ class OTP {
     return byteArray;
   }
 
-  static Hash getAlgorithm(Algorithm algorithm) {
+  static Digest getAlgorithm(Algorithm algorithm) {
     switch(algorithm) {
       case Algorithm.SHA256:
-        return sha256;
+        return SHA256Digest();
       case Algorithm.SHA512:
-        //TODO: implement
+        return SHA512Digest();
       default:
-        return sha1;
+        return SHA1Digest();
     }
   }
 }
