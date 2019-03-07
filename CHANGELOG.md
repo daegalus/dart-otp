@@ -1,3 +1,6 @@
+v1.0.3
+- Switched to PointyCastle for crypto and support for more than SHA1 hashing for tokens (amadejkastelic)
+
 v1.0.2
 
 - Add new TOTP interval parameters (optional)
