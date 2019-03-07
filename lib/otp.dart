@@ -1,27 +1,28 @@
 library otp;
 
 import 'dart:math';
-import 'package:crypto/crypto.dart';
+import 'dart:typed_data';
 import 'package:base32/base32.dart';
+import 'package:pointycastle/pointycastle.dart';
 
 class OTP {
-  static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30}) {
+  static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA1}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
-    return _generateCode(secret, time, length);
+    return _generateCode(secret, time, length, getAlgorithm(algorithm));
   }
 
-  static int generateHOTPCode(String secret, int counter, {int length = 6}) {
-    return _generateCode(secret, counter, length);
+  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+    return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
-  static int _generateCode(String secret, int time, int length) {
+  static int _generateCode(String secret, int time, int length, Mac mac) {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
     var timebytes = _int2bytes(time);
 
-    var hmac = Hmac(sha1, secretList);
-    var hash = hmac.convert(timebytes).bytes;
+    var hmac = mac..init(KeyParameter(secretList));
+    var hash = hmac.process(timebytes);
 
     int offset = hash[hash.length - 1] & 0xf;
 
@@ -44,9 +45,9 @@ class OTP {
     return base32.encode(bytes);
   }
 
-  static List _int2bytes(int long) {
+  static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
-    var byteArray = [0, 0, 0, 0, 0, 0, 0, 0];
+    var byteArray = Uint8List(8);
     for (var index = byteArray.length - 1; index >= 0; index--) {
       var byte = long & 0xff;
       byteArray[index] = byte;
@@ -54,4 +55,23 @@ class OTP {
     }
     return byteArray;
   }
+
+  static Mac getAlgorithm(Algorithm algorithm) {
+    switch(algorithm) {
+      case Algorithm.SHA224:
+        return Mac('SHA-224/HMAC');
+      case Algorithm.SHA256:
+        return Mac('SHA-256/HMAC');
+      case Algorithm.SHA384:
+        return Mac('SHA-384/HMAC');
+      case Algorithm.SHA512:
+        return Mac('SHA-512/HMAC');
+      default:
+        return Mac('SHA-1/HMAC');
+    }
+  }
+}
+
+enum Algorithm {
+  SHA1, SHA224, SHA256, SHA384, SHA512
 }
