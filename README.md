@@ -7,7 +7,7 @@ RFC6238 Time-Based One-Time Password / Google Authenticator Library
 Features:
 
 - Generate TOTP and HOTP codes.
-- [Annotated source code](http://daegalus.github.com/annotated/dart-otp/otp/otp.html)
+- [Annotated source code](http://daegalus.github.com/dart-otp/api/)
 
 ## Getting Started
 

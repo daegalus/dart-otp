@@ -6,12 +6,28 @@ import 'package:base32/base32.dart';
 import 'package:pointycastle/pointycastle.dart';
 
 class OTP {
-  static int generateTOTPCode(String secret, int time, {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA1}) {
+  /// Generates a Time-based one time password code
+  ///
+  /// Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
+  /// A interval of 1 will be the same as if passing time into the HOTPCode function..
+  ///
+  /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
+  /// These settings are defaulted to the RFC standard but can be changed.
+  static int generateTOTPCode(String secret, int time,
+      {int length = 6,
+      int interval = 30,
+      Algorithm algorithm = Algorithm.SHA1}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm));
   }
 
-  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+  /// Generates a one time password code based on a counter you provide and increment.
+  ///
+  /// This function does not increment for you.
+  /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
+  /// These settings are defaulted to the RFC standard but can be changed.
+  static int generateHOTPCode(String secret, int counter,
+      {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
@@ -56,8 +72,9 @@ class OTP {
     return byteArray;
   }
 
+  /// Gets the Mac for the provided algorithm.
   static Mac getAlgorithm(Algorithm algorithm) {
-    switch(algorithm) {
+    switch (algorithm) {
       case Algorithm.SHA224:
         return Mac('SHA-224/HMAC');
       case Algorithm.SHA256:
@@ -72,6 +89,4 @@ class OTP {
   }
 }
 
-enum Algorithm {
-  SHA1, SHA224, SHA256, SHA384, SHA512
-}
+enum Algorithm { SHA1, SHA224, SHA256, SHA384, SHA512 }

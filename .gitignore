@@ -3,5 +3,4 @@ packages/
 .packages
 *.lock
 out/
-docs/
 .dart_tool/
