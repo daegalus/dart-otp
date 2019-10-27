@@ -4,3 +4,4 @@ packages/
 *.lock
 out/
 .dart_tool/
+.vscode/

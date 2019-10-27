@@ -1,4 +1,11 @@
+v2.0.0-rc1
+
+- *BREAKING CHANGE* Switched default hashing algorithm to SHA256 from SHA1
+- Add constant time verification function to avoid timing attacks on code comparison.
+- Add String return variant of code generation.
+
 v1.0.3
+
 - Switched to PointyCastle for crypto and support for more than SHA1 hashing for tokens (amadejkastelic)
 
 v1.0.2

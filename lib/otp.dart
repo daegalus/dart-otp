@@ -14,11 +14,22 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
   static int generateTOTPCode(String secret, int time,
-      {int length = 6,
-      int interval = 30,
-      Algorithm algorithm = Algorithm.SHA1}) {
+      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm));
+  }
+
+  /// Generates a Time-based one time password code and return as a 0 padded string.
+  ///
+  /// Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
+  /// A interval of 1 will be the same as if passing time into the HOTPCode function..
+  ///
+  /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
+  /// These settings are defaulted to the RFC standard but can be changed.
+  static String generateTOTPCodeString(String secret, int time,
+      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
+    String code = "${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}";
+    return code.padLeft(length, '0');
   }
 
   /// Generates a one time password code based on a counter you provide and increment.
@@ -26,9 +37,14 @@ class OTP {
   /// This function does not increment for you.
   /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
-  static int generateHOTPCode(String secret, int counter,
-      {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm));
+  }
+
+  static String generateHOTPCodeString(String secret, int counter,
+      {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
+    String code = "${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}";
+    return code.padLeft(length, '0');
   }
 
   static int _generateCode(String secret, int time, int length, Mac mac) {
@@ -48,6 +64,19 @@ class OTP {
         (hash[offset + 3] & 0xff);
 
     return binary % pow(10, length);
+  }
+
+  static bool constantTimeVerification(final String code, final String othercode) {
+    if (code.length != othercode.length) {
+      return false;
+    }
+
+    var result = true;
+    for (var i = 0; i < code.length; i++) {
+      // Keep result at the end otherwise Dart VM will shortcircuit on a result thats already false.
+      result = (code[i] == othercode[i]) && result;
+    }
+    return result;
   }
 
   static String randomSecret() {
