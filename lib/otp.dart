@@ -14,7 +14,9 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
   static int generateTOTPCode(String secret, int time,
-      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
+      {int length = 6,
+      int interval = 30,
+      Algorithm algorithm = Algorithm.SHA256}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm));
   }
@@ -27,8 +29,11 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateTOTPCodeString(String secret, int time,
-      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
-    String code = "${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}";
+      {int length = 6,
+      int interval = 30,
+      Algorithm algorithm = Algorithm.SHA256}) {
+    String code =
+        "${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}";
     return code.padLeft(length, '0');
   }
 
@@ -37,7 +42,8 @@ class OTP {
   /// This function does not increment for you.
   /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
-  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
+  static int generateHOTPCode(String secret, int counter,
+      {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
@@ -48,7 +54,8 @@ class OTP {
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateHOTPCodeString(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
-    String code = "${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}";
+    String code =
+        "${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}";
     return code.padLeft(length, '0');
   }
 
@@ -74,7 +81,8 @@ class OTP {
   /// Allows you to compare 2 codes in constant time, to mitigate timing attacks for secure codes.
   ///
   /// This function takes 2 codes in string format.
-  static bool constantTimeVerification(final String code, final String othercode) {
+  static bool constantTimeVerification(
+      final String code, final String othercode) {
     if (code.length != othercode.length) {
       return false;
     }
