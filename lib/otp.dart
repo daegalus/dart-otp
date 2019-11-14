@@ -41,6 +41,11 @@ class OTP {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
+  /// Generates a one time password code based on a counter you provide and increment, returns as a 0 padded string.
+  ///
+  /// This function does not increment for you.
+  /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
+  /// These settings are defaulted to the RFC standard but can be changed.
   static String generateHOTPCodeString(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
     String code = "${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}";
@@ -66,6 +71,9 @@ class OTP {
     return binary % pow(10, length);
   }
 
+  /// Allows you to compare 2 codes in constant time, to mitigate timing attacks for secure codes.
+  ///
+  /// This function takes 2 codes in string format.
   static bool constantTimeVerification(final String code, final String othercode) {
     if (code.length != othercode.length) {
       return false;
@@ -79,8 +87,9 @@ class OTP {
     return result;
   }
 
+  /// Generates a cryptographically secure random secret in base32 string format.
   static String randomSecret() {
-    var rand = Random();
+    var rand = Random.secure();
     var bytes = List();
 
     for (int i = 0; i < 10; i++) {

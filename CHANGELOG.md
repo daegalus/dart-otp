@@ -1,3 +1,7 @@
+v2.0.0
+
+- No changes from rc1, accepting the 1-3 second timing difference between constant time code checks until someone can help me figure out how to make it match.
+
 v2.0.0-rc1
 
 - *BREAKING CHANGE* Switched default hashing algorithm to SHA256 from SHA1
