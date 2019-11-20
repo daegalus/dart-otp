@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 0.28.2">
+  <meta name="generator" content="made with love by dartdoc 0.28.8">
   <meta name="description" content="otp API docs, for the Dart programming language.">
   <title>otp - Dart API docs</title>
 
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="static-assets/github.css">
   <link rel="stylesheet" href="static-assets/styles.css">
   <link rel="icon" href="static-assets/favicon.png">
-  
+  <!-- header placeholder -->
 </head>
 
 <body>
@@ -56,16 +56,20 @@
         <p><a href="https://travis-ci.org/Daegalus/dart-otp"><img src="https://travis-ci.org/Daegalus/dart-otp.svg?branch=master" alt="Build Status"></a></p>
 <h1 id="dart-otp">dart-otp</h1>
 <p>RFC6238 Time-Based One-Time Password / Google Authenticator Library</p>
-<p>Features:</p><ul><li>Generate TOTP and HOTP codes.</li><li><a href="http://daegalus.github.com/annotated/dart-otp/otp/otp.html">Annotated source code</a></li></ul>
+<p>Features:</p>
+<ul>
+<li>Generate TOTP and HOTP codes.</li>
+<li><a href="http://daegalus.github.com/dart-otp/api/">Annotated source code</a></li>
+</ul>
 <h2 id="getting-started">Getting Started</h2>
 <h3 id="pubspec">Pubspec</h3>
 <p>pub.dartlang.org: (you can use 'any' instead of a version if you just want the latest always)</p>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  otp: 1.0.1
+  otp: 2.0.2
 </code></pre>
-<pre class="language-dart"><code class="language-dart">#import('package:otp/otp.dart');
+<pre class="language-dart"><code class="language-dart">import 'package:otp/otp.dart';
 </code></pre>
-<p>Start generating tokenss.</p>
+<p>Start generating tokens.</p>
 <pre class="language-dart"><code class="language-dart">// Generate TOTP code.
 OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", 1362302550000); // -&gt; 238158
 
@@ -73,12 +77,52 @@ OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", 1362302550000); // -&gt; 238158
 OTP.generateHOTPCode("JBSWY3DPEHPK3PXP", 7); // -&gt; 449891
 </code></pre>
 <h2 id="api">API</h2>
-<h3 id="otpgeneratetotpcodestring-secret-int-currenttime-int-length-6-int-interval-30">OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30})</h3>
-<p>Generate a code for the provided secret and time.</p><ul><li><code>secret</code> - (String) A Base32 String.</li><li><code>currentTime</code> - (int) The current time in milliseconds.</li><li><code>length</code> - (int) the length of the resulting code.</li><li><code>interval</code> - (int) refresh interval to get a new code.</li></ul>
-<p>Returns an <code>int</code> code.</p>
+<h3 id="otpgeneratetotpcodestring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1">OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})</h3>
+<p>Generate a code for the provided secret and time.</p>
+<ul>
+<li><code>secret</code> - (String) A Base32 String.</li>
+<li><code>currentTime</code> - (int) The current time in milliseconds.</li>
+<li><code>length</code> - (int) The length of the resulting code.</li>
+<li><code>interval</code> - (int) Refresh interval to get a new code.</li>
+<li><code>algorithm</code> - (Algorithm) Hashing method.</li>
+</ul>
+<p>Returns an <code>int</code> code. Does not preserve leading zeros.</p>
+<h3 id="otpgeneratetotpcodestringstring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1">OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})</h3>
+<p>Generate a code for the provided secret and time.</p>
+<ul>
+<li><code>secret</code> - (String) A Base32 String.</li>
+<li><code>currentTime</code> - (int) The current time in milliseconds.</li>
+<li><code>length</code> - (int) The length of the resulting code.</li>
+<li><code>interval</code> - (int) Refresh interval to get a new code.</li>
+<li><code>algorithm</code> - (Algorithm) Hashing method.</li>
+</ul>
+<p>Returns an <code>String</code> code. Preserves leading zeros.</p>
 <h3 id="otpgeneratehotpcodestring-secret-int-counter-int-length-6">OTP.generateHOTPCode(String secret, int counter, {int length: 6})</h3>
-<p>Generate a code for the provided secret and time.</p><ul><li><code>secret</code> - (String) A Base32 String.</li><li><code>counter</code> - (int) An int counter.</li><li><code>length</code> - (int) the length of the resulting code.</li></ul>
-<p>Returns an <code>int</code> code.</p>
+<p>Generate a code for the provided secret and time.</p>
+<ul>
+<li><code>secret</code> - (String) A Base32 String.</li>
+<li><code>counter</code> - (int) An int counter.</li>
+<li><code>length</code> - (int) the length of the resulting code.</li>
+</ul>
+<p>Returns an <code>int</code> code. Does not preserve leading zeros</p>
+<h3 id="otpgeneratehotpcodestringstring-secret-int-counter-int-length-6">OTP.generateHOTPCodeString(String secret, int counter, {int length: 6})</h3>
+<p>Generate a code for the provided secret and time.</p>
+<ul>
+<li><code>secret</code> - (String) A Base32 String.</li>
+<li><code>counter</code> - (int) An int counter.</li>
+<li><code>length</code> - (int) the length of the resulting code.</li>
+</ul>
+<p>Returns an <code>String</code> code. Preserves leading zeros</p>
+<h3 id="otpconstanttimeverificationfinal-string-code-final-string-othercode">OTP.constantTimeVerification(final String code, final String othercode)</h3>
+<p><em>!DISCLAIMER!</em>
+I can only get this to be within 1 millisecond between different codes and same codes.
+I have yet to get them to be equal. but 1 millisecond should be an OK room for error though.</p>
+<p>Compares 2 codes in constant time to minimize risk of timing attacks.</p>
+<ul>
+<li><code>code</code> - (String) A Base32 String.</li>
+<li><code>othercode</code> - (String) A Base32 String.</li>
+</ul>
+<p>Returns an <code>bool</code> if they match or not.</p>
 <h2 id="testing">Testing</h2>
 <pre class="language-dart"><code>pub run test
 </code></pre>
@@ -106,10 +150,11 @@ OTP.generateHOTPCode("JBSWY3DPEHPK3PXP", 7); // -&gt; 449891
 
 <footer>
   <span class="no-break">
-    otp 1.0.3
+    otp
+      2.0.2
   </span>
 
-  
+  <!-- footer-text placeholder -->
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -117,7 +162,7 @@ OTP.generateHOTPCode("JBSWY3DPEHPK3PXP", 7); // -&gt; 449891
 <script src="static-assets/highlight.pack.js"></script>
 <script src="static-assets/URI.js"></script>
 <script src="static-assets/script.js"></script>
-
+<!-- footer placeholder -->
 
 </body>
 

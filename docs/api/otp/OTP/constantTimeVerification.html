@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the randomSecret method from the OTP class, for the Dart programming language.">
-  <title>randomSecret method - OTP class - otp library - Dart API</title>
+  <meta name="description" content="API docs for the constantTimeVerification method from the OTP class, for the Dart programming language.">
+  <title>constantTimeVerification method - OTP class - otp library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
   <base href="../..">
 
@@ -27,9 +27,9 @@
     <li><a href="index.html">otp</a></li>
     <li><a href="otp/otp-library.html">otp</a></li>
     <li><a href="otp/OTP-class.html">OTP</a></li>
-    <li class="self-crumb">randomSecret method</li>
+    <li class="self-crumb">constantTimeVerification method</li>
   </ol>
-  <div class="self-name">randomSecret</div>
+  <div class="self-name">constantTimeVerification</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="index.html">otp</a></li>
       <li><a href="otp/otp-library.html">otp</a></li>
       <li><a href="otp/OTP-class.html">OTP</a></li>
-      <li class="self-crumb">randomSecret method</li>
+      <li class="self-crumb">constantTimeVerification method</li>
     </ol>
     
     <h5>OTP class</h5>
@@ -86,29 +86,32 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">randomSecret</span> method</h1></div>
+      <div><h1><span class="kind-method">constantTimeVerification</span> method</h1></div>
 
     <section class="multi-line-signature">
-      <span class="returntype">String</span>
-            <span class="name ">randomSecret</span>
-(<wbr>)
+      <span class="returntype">bool</span>
+            <span class="name ">constantTimeVerification</span>
+(<wbr><span class="parameter" id="constantTimeVerification-param-code"><span class="type-annotation">String</span> <span class="parameter-name">code</span></span> <span class="parameter" id="constantTimeVerification-param-othercode"><span class="type-annotation">String</span> <span class="parameter-name">othercode</span></span>)
       
     </section>
     <section class="desc markdown">
-      <p>Generates a cryptographically secure random secret in base32 string format.</p>
+      <p>Allows you to compare 2 codes in constant time, to mitigate timing attacks for secure codes.</p>
+<p>This function takes 2 codes in string format.</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">static String randomSecret() {
-  var rand = Random.secure();
-  var bytes = List();
-
-  for (int i = 0; i &lt; 10; i++) {
-    bytes.add(rand.nextInt(256));
+      <pre class="language-dart"><code class="language-dart">static bool constantTimeVerification(final String code, final String othercode) {
+  if (code.length != othercode.length) {
+    return false;
   }
 
-  return base32.encode(bytes);
+  var result = true;
+  for (var i = 0; i &lt; code.length; i++) {
+    &#47;&#47; Keep result at the end otherwise Dart VM will shortcircuit on a result thats already false.
+    result = (code[i] == othercode[i]) &amp;&amp; result;
+  }
+  return result;
 }</code></pre>
     </section>
 

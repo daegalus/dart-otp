@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the randomSecret method from the OTP class, for the Dart programming language.">
-  <title>randomSecret method - OTP class - otp library - Dart API</title>
+  <meta name="description" content="API docs for the generateTOTPCodeString method from the OTP class, for the Dart programming language.">
+  <title>generateTOTPCodeString method - OTP class - otp library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
   <base href="../..">
 
@@ -27,9 +27,9 @@
     <li><a href="index.html">otp</a></li>
     <li><a href="otp/otp-library.html">otp</a></li>
     <li><a href="otp/OTP-class.html">OTP</a></li>
-    <li class="self-crumb">randomSecret method</li>
+    <li class="self-crumb">generateTOTPCodeString method</li>
   </ol>
-  <div class="self-name">randomSecret</div>
+  <div class="self-name">generateTOTPCodeString</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="index.html">otp</a></li>
       <li><a href="otp/otp-library.html">otp</a></li>
       <li><a href="otp/OTP-class.html">OTP</a></li>
-      <li class="self-crumb">randomSecret method</li>
+      <li class="self-crumb">generateTOTPCodeString method</li>
     </ol>
     
     <h5>OTP class</h5>
@@ -86,29 +86,28 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">randomSecret</span> method</h1></div>
+      <div><h1><span class="kind-method">generateTOTPCodeString</span> method</h1></div>
 
     <section class="multi-line-signature">
       <span class="returntype">String</span>
-            <span class="name ">randomSecret</span>
-(<wbr>)
+            <span class="name ">generateTOTPCodeString</span>
+(<wbr><span class="parameter" id="generateTOTPCodeString-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateTOTPCodeString-param-time"><span class="type-annotation">int</span> <span class="parameter-name">time</span>, {</span> <span class="parameter" id="generateTOTPCodeString-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateTOTPCodeString-param-interval"><span class="type-annotation">int</span> <span class="parameter-name">interval</span>: <span class="default-value">30</span>, </span> <span class="parameter" id="generateTOTPCodeString-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span></span> })
       
     </section>
     <section class="desc markdown">
-      <p>Generates a cryptographically secure random secret in base32 string format.</p>
+      <p>Generates a Time-based one time password code and return as a 0 padded string.</p>
+<p>Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
+A interval of 1 will be the same as if passing time into the HOTPCode function..</p>
+<p>Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
+These settings are defaulted to the RFC standard but can be changed.</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">static String randomSecret() {
-  var rand = Random.secure();
-  var bytes = List();
-
-  for (int i = 0; i &lt; 10; i++) {
-    bytes.add(rand.nextInt(256));
-  }
-
-  return base32.encode(bytes);
+      <pre class="language-dart"><code class="language-dart">static String generateTOTPCodeString(String secret, int time,
+    {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
+  String code = &quot;${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}&quot;;
+  return code.padLeft(length, &#39;0&#39;);
 }</code></pre>
     </section>
 

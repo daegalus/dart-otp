@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="static-assets/github.css">
   <link rel="stylesheet" href="static-assets/styles.css">
   <link rel="icon" href="static-assets/favicon.png">
-  
+  <!-- header placeholder -->
 </head>
 
 <body>
@@ -53,28 +53,34 @@
     
     <h5>OTP class</h5>
     <ol>
-      <li class="section-title"><a href="otp/OTP-class.html#constructors">Constructors</a></li>
-      <li><a href="otp/OTP/OTP.html">OTP</a></li>
     
-      <li class="section-title inherited">
-        <a href="otp/OTP-class.html#instance-properties">Properties</a>
-      </li>
-      <li class="inherited"><a href="otp/OTP/hashCode.html">hashCode</a></li>
-      <li class="inherited"><a href="otp/OTP/runtimeType.html">runtimeType</a></li>
+        <li class="section-title"><a href="otp/OTP-class.html#constructors">Constructors</a></li>
+        <li><a href="otp/OTP/OTP.html">OTP</a></li>
     
-      <li class="section-title inherited"><a href="otp/OTP-class.html#instance-methods">Methods</a></li>
-      <li class="inherited"><a href="otp/OTP/noSuchMethod.html">noSuchMethod</a></li>
-      <li class="inherited"><a href="otp/OTP/toString.html">toString</a></li>
+        <li class="section-title inherited">
+            <a href="otp/OTP-class.html#instance-properties">Properties</a>
+        </li>
+        <li class="inherited"><a href="otp/OTP/hashCode.html">hashCode</a></li>
+        <li class="inherited"><a href="otp/OTP/runtimeType.html">runtimeType</a></li>
     
-      <li class="section-title inherited"><a href="otp/OTP-class.html#operators">Operators</a></li>
-      <li class="inherited"><a href="otp/OTP/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="otp/OTP-class.html#instance-methods">Methods</a></li>
+        <li class="inherited"><a href="otp/OTP/noSuchMethod.html">noSuchMethod</a></li>
+        <li class="inherited"><a href="otp/OTP/toString.html">toString</a></li>
+    
+        <li class="section-title inherited"><a href="otp/OTP-class.html#operators">Operators</a></li>
+        <li class="inherited"><a href="otp/OTP/operator_equals.html">operator ==</a></li>
     
     
-      <li class="section-title"><a href="otp/OTP-class.html#static-methods">Static methods</a></li>
-      <li><a href="otp/OTP/generateHOTPCode.html">generateHOTPCode</a></li>
-      <li><a href="otp/OTP/generateTOTPCode.html">generateTOTPCode</a></li>
-      <li><a href="otp/OTP/getAlgorithm.html">getAlgorithm</a></li>
-      <li><a href="otp/OTP/randomSecret.html">randomSecret</a></li>
+        <li class="section-title"><a href="otp/OTP-class.html#static-methods">Static methods</a></li>
+        <li><a href="otp/OTP/constantTimeVerification.html">constantTimeVerification</a></li>
+        <li><a href="otp/OTP/generateHOTPCode.html">generateHOTPCode</a></li>
+        <li><a href="otp/OTP/generateHOTPCodeString.html">generateHOTPCodeString</a></li>
+        <li><a href="otp/OTP/generateTOTPCode.html">generateTOTPCode</a></li>
+        <li><a href="otp/OTP/generateTOTPCodeString.html">generateTOTPCodeString</a></li>
+        <li><a href="otp/OTP/getAlgorithm.html">getAlgorithm</a></li>
+        <li><a href="otp/OTP/randomSecret.html">randomSecret</a></li>
+    
+    
     
     </ol>
   </div><!--/.sidebar-offcanvas-->
@@ -85,7 +91,7 @@
     <section class="multi-line-signature">
       <span class="returntype">int</span>
             <span class="name ">generateTOTPCode</span>
-(<wbr><span class="parameter" id="generateTOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateTOTPCode-param-time"><span class="type-annotation">int</span> <span class="parameter-name">time</span>, {</span> <span class="parameter" id="generateTOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateTOTPCode-param-interval"><span class="type-annotation">int</span> <span class="parameter-name">interval</span>: <span class="default-value">30</span>, </span> <span class="parameter" id="generateTOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA1</span></span> })
+(<wbr><span class="parameter" id="generateTOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateTOTPCode-param-time"><span class="type-annotation">int</span> <span class="parameter-name">time</span>, {</span> <span class="parameter" id="generateTOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateTOTPCode-param-interval"><span class="type-annotation">int</span> <span class="parameter-name">interval</span>: <span class="default-value">30</span>, </span> <span class="parameter" id="generateTOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span></span> })
       
     </section>
     <section class="desc markdown">
@@ -99,9 +105,7 @@ These settings are defaulted to the RFC standard but can be changed.</p>
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">static int generateTOTPCode(String secret, int time,
-    {int length = 6,
-    int interval = 30,
-    Algorithm algorithm = Algorithm.SHA1}) {
+    {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
   time = (((time ~&#47; 1000).round()) ~&#47; interval).floor();
   return _generateCode(secret, time, length, getAlgorithm(algorithm));
 }</code></pre>
@@ -116,10 +120,11 @@ These settings are defaulted to the RFC standard but can be changed.</p>
 
 <footer>
   <span class="no-break">
-    otp 1.0.3
+    otp
+      2.0.2
   </span>
 
-  
+  <!-- footer-text placeholder -->
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -127,7 +132,7 @@ These settings are defaulted to the RFC standard but can be changed.</p>
 <script src="static-assets/highlight.pack.js"></script>
 <script src="static-assets/URI.js"></script>
 <script src="static-assets/script.js"></script>
-
+<!-- footer placeholder -->
 
 </body>
 

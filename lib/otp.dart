@@ -3,7 +3,7 @@ library otp;
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:base32/base32.dart';
-import 'package:pointycastle/pointycastle.dart';
+import 'package:crypto/crypto.dart';
 
 class OTP {
   /// Generates a Time-based one time password code
@@ -14,9 +14,7 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
   static int generateTOTPCode(String secret, int time,
-      {int length = 6,
-      int interval = 30,
-      Algorithm algorithm = Algorithm.SHA256}) {
+      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm));
   }
@@ -29,11 +27,8 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateTOTPCodeString(String secret, int time,
-      {int length = 6,
-      int interval = 30,
-      Algorithm algorithm = Algorithm.SHA256}) {
-    String code =
-        "${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}";
+      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
+    String code = "${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}";
     return code.padLeft(length, '0');
   }
 
@@ -42,8 +37,7 @@ class OTP {
   /// This function does not increment for you.
   /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
-  static int generateHOTPCode(String secret, int counter,
-      {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
+  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm));
   }
 
@@ -54,26 +48,25 @@ class OTP {
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateHOTPCodeString(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
-    String code =
-        "${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}";
+    String code = "${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}";
     return code.padLeft(length, '0');
   }
 
-  static int _generateCode(String secret, int time, int length, Mac mac) {
+  static int _generateCode(String secret, int time, int length, Hash mac) {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
     var timebytes = _int2bytes(time);
 
-    var hmac = mac..init(KeyParameter(secretList));
-    var hash = hmac.process(timebytes);
+    var hmac = Hmac(mac, secretList);
+    var digest = hmac.convert(timebytes).bytes;
 
-    int offset = hash[hash.length - 1] & 0xf;
+    int offset = digest[digest.length - 1] & 0xf;
 
-    int binary = ((hash[offset] & 0x7f) << 24) |
-        ((hash[offset + 1] & 0xff) << 16) |
-        ((hash[offset + 2] & 0xff) << 8) |
-        (hash[offset + 3] & 0xff);
+    int binary = ((digest[offset] & 0x7f) << 24) |
+        ((digest[offset + 1] & 0xff) << 16) |
+        ((digest[offset + 2] & 0xff) << 8) |
+        (digest[offset + 3] & 0xff);
 
     return binary % pow(10, length);
   }
@@ -81,8 +74,7 @@ class OTP {
   /// Allows you to compare 2 codes in constant time, to mitigate timing attacks for secure codes.
   ///
   /// This function takes 2 codes in string format.
-  static bool constantTimeVerification(
-      final String code, final String othercode) {
+  static bool constantTimeVerification(final String code, final String othercode) {
     if (code.length != othercode.length) {
       return false;
     }
@@ -119,18 +111,20 @@ class OTP {
   }
 
   /// Gets the Mac for the provided algorithm.
-  static Mac getAlgorithm(Algorithm algorithm) {
+  static Hash getAlgorithm(Algorithm algorithm) {
     switch (algorithm) {
       case Algorithm.SHA224:
-        return Mac('SHA-224/HMAC');
+        return sha224;
       case Algorithm.SHA256:
-        return Mac('SHA-256/HMAC');
+        return sha256;
       case Algorithm.SHA384:
-        return Mac('SHA-384/HMAC');
+        return sha384;
       case Algorithm.SHA512:
-        return Mac('SHA-512/HMAC');
+        return sha512;
+      case Algorithm.SHA1:
+        return sha1;
       default:
-        return Mac('SHA-1/HMAC');
+        return sha256;
     }
   }
 }

@@ -1,3 +1,9 @@
+# Changelog
+
+v2.0.2
+
+- Switch to crypto lib inplace of PointyCastle for HMAC
+
 v2.0.1, v2.0.0
 
 - Formatting
