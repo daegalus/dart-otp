@@ -1,5 +1,9 @@
 # Changelog
 
+v2.0.3
+
+- Fix type error at runtime for RandomSecret generation. MR #14 (thanks readytopark)
+
 v2.0.2
 
 - Switch to crypto lib inplace of PointyCastle for HMAC
