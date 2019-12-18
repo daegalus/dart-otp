@@ -64,6 +64,11 @@ main() {
 
       expect(OTP.constantTimeVerification(code, othercode), equals(true));
     });
+    
+    test('Generate a cryptographically secure random secret in base32 string format', () {
+      var secret = OTP.randomSecret();
+      assert(secret.isNotEmpty);
+    });
 
     test('Verify comparison timing', () {
       var code = OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXZ", TIME);

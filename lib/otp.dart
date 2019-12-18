@@ -90,13 +90,13 @@ class OTP {
   /// Generates a cryptographically secure random secret in base32 string format.
   static String randomSecret() {
     var rand = Random.secure();
-    var bytes = List();
+    var bytes = <int>[];
 
-    for (int i = 0; i < 10; i++) {
+    for (var i = 0; i < 10; i++) {
       bytes.add(rand.nextInt(256));
     }
 
-    return base32.encode(bytes);
+    return base32.encode(Uint8List.fromList(bytes));
   }
 
   static Uint8List _int2bytes(int long) {
