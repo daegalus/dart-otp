@@ -9,4 +9,7 @@ main() {
 
   var code3 = OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", DateTime.now().millisecondsSinceEpoch, interval: 20, algorithm: Algorithm.SHA256);
   print(code3);
+
+  var code4 = OTP.generateHOTPCode("OBRWE5CEFNFWQQJRMZRGM4LZMZIGKKZU", 1, algorithm: Algorithm.SHA256);
+  print(code4);
 }

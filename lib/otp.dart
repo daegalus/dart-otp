@@ -2,7 +2,9 @@ library otp;
 
 import 'dart:math';
 import 'dart:typed_data';
+import 'dart:convert';
 import 'package:base32/base32.dart';
+import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 
 class OTP {
@@ -61,7 +63,41 @@ class OTP {
     var hmac = Hmac(mac, secretList);
     var digest = hmac.convert(timebytes).bytes;
 
-    int offset = digest[digest.length - 1] & 0xf;
+    int offset = digest[digest.length - 1] & 0x0f;
+
+    int binary = ((digest[offset] & 0x7f) << 24) |
+        ((digest[offset + 1] & 0xff) << 16) |
+        ((digest[offset + 2] & 0xff) << 8) |
+        (digest[offset + 3] & 0xff);
+
+    return binary % pow(10, length);
+  }
+
+  static String getDigest(String secret, int counter, int length, Hash mac) {
+    length = (length > 0) ? length : 6;
+
+    var secretList = base32.decode(secret);
+    var timebytes = _int2bytes(counter);
+
+    var arr = new List<int>.filled(8, 0);
+    //final ctrBytes = arr + [(counter >> 8) & 0xff, counter & 0xff];
+    //final ctrBytes = [counter & 0xff, (counter >> 8) & 0xff] + arr;
+    arr[arr.length-1] = 1;
+    var hmac = Hmac(mac, secretList);
+    var digest = hmac.convert(timebytes).bytes;
+
+    return hex.encode(digest);
+  }
+  static int _generateCodeHOTP(String secret, int counter, int length, Hash mac) {
+    length = (length > 0) ? length : 6;
+
+    var secretList = base32.decode(secret);
+    var timebytes = _int2bytes(counter);
+
+    var hmac = Hmac(mac, secretList);
+    var digest = hmac.convert(timebytes).bytes;
+
+    int offset = digest[digest.length - 1] & 0x0f;
 
     int binary = ((digest[offset] & 0x7f) << 24) |
         ((digest[offset + 1] & 0xff) << 16) |
@@ -102,6 +138,7 @@ class OTP {
   static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
     var byteArray = Uint8List(8);
+    //byteArray..buffer.asUint64List()[0] = long
     for (var index = byteArray.length - 1; index >= 0; index--) {
       var byte = long & 0xff;
       byteArray[index] = byte;
