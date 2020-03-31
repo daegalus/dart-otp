@@ -70,6 +70,8 @@
         <li class="section-title inherited"><a href="otp/OTP-class.html#operators">Operators</a></li>
         <li class="inherited"><a href="otp/OTP/operator_equals.html">operator ==</a></li>
     
+        <li class="section-title"><a href="otp/OTP-class.html#static-properties">Static properties</a></li>
+        <li><a href="otp/OTP/useTOTPPaddingForHOTP.html">useTOTPPaddingForHOTP</a></li>
     
         <li class="section-title"><a href="otp/OTP-class.html#static-methods">Static methods</a></li>
         <li><a href="otp/OTP/constantTimeVerification.html">constantTimeVerification</a></li>
@@ -78,6 +80,7 @@
         <li><a href="otp/OTP/generateTOTPCode.html">generateTOTPCode</a></li>
         <li><a href="otp/OTP/generateTOTPCodeString.html">generateTOTPCodeString</a></li>
         <li><a href="otp/OTP/getAlgorithm.html">getAlgorithm</a></li>
+        <li><a href="otp/OTP/getInternalDigest.html">getInternalDigest</a></li>
         <li><a href="otp/OTP/randomSecret.html">randomSecret</a></li>
     
     
@@ -105,8 +108,11 @@ These settings are defaulted to the RFC standard but can be changed.</p>
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">static String generateTOTPCodeString(String secret, int time,
-    {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256}) {
-  String code = &quot;${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}&quot;;
+    {int length = 6,
+    int interval = 30,
+    Algorithm algorithm = Algorithm.SHA256}) {
+  var code =
+      &#39;${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}&#39;;
   return code.padLeft(length, &#39;0&#39;);
 }</code></pre>
     </section>
@@ -121,7 +127,7 @@ These settings are defaulted to the RFC standard but can be changed.</p>
 <footer>
   <span class="no-break">
     otp
-      2.0.2
+      2.1.0
   </span>
 
   <!-- footer-text placeholder -->

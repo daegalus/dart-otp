@@ -4,6 +4,7 @@ v2.1.0
 - Fix secret paddding to follow proper TOTP secret padding and sizing for SHA256, SHA512
 - Remove RFC unsupported hashes. SHA224 and SHA384 are no longer supported.
 - Show warning when using anything other than SHA1, as the RFC doesn't support it so I have found that libraries don't pad correctly for HOTP.
+- At the same time, SHA1 is now again the HOTP default.
 - Add optional TOTP style paddding for HOTP when using SHA256 and SHA512.
 - Force version 1.1.1 of Base32 library, as that was a major bug fix release that improved Base32 support.
 - Add documentation and additional information on how to use this library.

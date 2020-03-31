@@ -8,7 +8,9 @@ import 'package:crypto/crypto.dart';
 import 'package:quick_log/quick_log.dart';
 
 class OTP {
+  /// Used to enable TOTP style padding of the secret for SHA256 and SHA512 usage with HOTP. False by default.
   static bool useTOTPPaddingForHOTP = false;
+
   /// Generates a Time-based one time password code
   ///
   /// Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
@@ -22,7 +24,7 @@ class OTP {
       Algorithm algorithm = Algorithm.SHA256}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm),
-        getAlgorithmByteLength(algorithm));
+        _getAlgorithmByteLength(algorithm));
   }
 
   /// Generates a Time-based one time password code and return as a 0 padded string.
@@ -49,7 +51,7 @@ class OTP {
   static int generateHOTPCode(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm),
-        getAlgorithmByteLength(algorithm),
+        _getAlgorithmByteLength(algorithm),
         isHOTP: true);
   }
 
@@ -93,6 +95,8 @@ class OTP {
     return binary % pow(10, length);
   }
 
+  /// Mostly used for testing purposes, but this can get you the internal digest based on your settings. 
+  /// No handholding for this function, so you need to know exactly what to pass in.
   static String getInternalDigest(String secret, int counter, int length, Hash mac) {
     length = (length > 0) ? length : 6;
 
@@ -142,6 +146,7 @@ class OTP {
   static Uint8List _padSecret(Uint8List secret, int length) {
     if (secret.length == length) return secret;
 
+    // ignore: prefer_collection_literals
     var newList = List<int>();
     for (var i = 0; i * secret.length < length; i++) {
       newList.addAll(secret);
@@ -152,12 +157,12 @@ class OTP {
 
   static void _showHOTPWarning(Hash mac) {
     if (mac is Sha256 || mac is Sha512) {
-      var logger = Logger("otp");
+      var logger = Logger('otp');
       logger.warning('Using non-SHA1 hashing with HOTP is not part of the RFC for HOTP and may cause incompatibilities between different library implementatiions. This library attempts to match behavior with other libraries as best it can.');
     }
   }
 
-  /// Gets the Mac for the provided algorithm.
+  /// Gets the Mac for the provided algorithm. Mostly used for testing, not very helpful outside of that.
   static Hash getAlgorithm(Algorithm algorithm) {
     switch (algorithm) {
       case Algorithm.SHA256:
@@ -172,7 +177,7 @@ class OTP {
   }
 
   /// Gets the requried byte length for the provided algorithm.
-  static int getAlgorithmByteLength(Algorithm algorithm) {
+  static int _getAlgorithmByteLength(Algorithm algorithm) {
     switch (algorithm) {
       case Algorithm.SHA256:
         return 32;
