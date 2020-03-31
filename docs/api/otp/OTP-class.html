@@ -146,6 +146,20 @@
       </dl>
     </section>
 
+    <section class="summary offset-anchor" id="static-properties">
+      <h2>Static Properties</h2>
+
+      <dl class="properties">
+        <dt id="useTOTPPaddingForHOTP" class="property">
+          <span class="name"><a href="otp/OTP/useTOTPPaddingForHOTP.html">useTOTPPaddingForHOTP</a></span>
+          <span class="signature">&#8596; bool</span>         
+        </dt>
+        <dd>
+          Used to enable TOTP style padding of the secret for SHA256 and SHA512 usage with HOTP. False by default.
+                  <div class="features">read / write</div>
+</dd>
+      </dl>
+    </section>
 
     <section class="summary offset-anchor" id="static-methods">
       <h2>Static Methods</h2>
@@ -160,7 +174,7 @@
                   
 </dd>
         <dt id="generateHOTPCode" class="callable">
-          <span class="name"><a href="otp/OTP/generateHOTPCode.html">generateHOTPCode</a></span><span class="signature">(<wbr><span class="parameter" id="generateHOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateHOTPCode-param-counter"><span class="type-annotation">int</span> <span class="parameter-name">counter</span>, {</span> <span class="parameter" id="generateHOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateHOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span></span> })
+          <span class="name"><a href="otp/OTP/generateHOTPCode.html">generateHOTPCode</a></span><span class="signature">(<wbr><span class="parameter" id="generateHOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateHOTPCode-param-counter"><span class="type-annotation">int</span> <span class="parameter-name">counter</span>, {</span> <span class="parameter" id="generateHOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateHOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA1</span></span> })
             <span class="returntype parameter">&#8594; int</span>
           </span>
                   </dt>
@@ -169,7 +183,7 @@
                   
 </dd>
         <dt id="generateHOTPCodeString" class="callable">
-          <span class="name"><a href="otp/OTP/generateHOTPCodeString.html">generateHOTPCodeString</a></span><span class="signature">(<wbr><span class="parameter" id="generateHOTPCodeString-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateHOTPCodeString-param-counter"><span class="type-annotation">int</span> <span class="parameter-name">counter</span>, {</span> <span class="parameter" id="generateHOTPCodeString-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateHOTPCodeString-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span></span> })
+          <span class="name"><a href="otp/OTP/generateHOTPCodeString.html">generateHOTPCodeString</a></span><span class="signature">(<wbr><span class="parameter" id="generateHOTPCodeString-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateHOTPCodeString-param-counter"><span class="type-annotation">int</span> <span class="parameter-name">counter</span>, {</span> <span class="parameter" id="generateHOTPCodeString-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateHOTPCodeString-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA1</span></span> })
             <span class="returntype parameter">&#8594; String</span>
           </span>
                   </dt>
@@ -201,7 +215,17 @@
           </span>
                   </dt>
         <dd>
-          Gets the Mac for the provided algorithm.
+          Gets the Mac for the provided algorithm. Mostly used for testing, not very helpful outside of that.
+                  
+</dd>
+        <dt id="getInternalDigest" class="callable">
+          <span class="name"><a href="otp/OTP/getInternalDigest.html">getInternalDigest</a></span><span class="signature">(<wbr><span class="parameter" id="getInternalDigest-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="getInternalDigest-param-counter"><span class="type-annotation">int</span> <span class="parameter-name">counter</span>, </span> <span class="parameter" id="getInternalDigest-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, </span> <span class="parameter" id="getInternalDigest-param-mac"><span class="type-annotation">Hash</span> <span class="parameter-name">mac</span></span>)
+            <span class="returntype parameter">&#8594; String</span>
+          </span>
+                  </dt>
+        <dd>
+          Mostly used for testing purposes, but this can get you the internal digest based on your settings. 
+No handholding for this function, so you need to know exactly what to pass in.
                   
 </dd>
         <dt id="randomSecret" class="callable">
@@ -238,6 +262,8 @@
       <li class="section-title inherited"><a href="otp/OTP-class.html#operators">Operators</a></li>
       <li class="inherited"><a href="otp/OTP/operator_equals.html">operator ==</a></li>
     
+      <li class="section-title"><a href="otp/OTP-class.html#static-properties">Static properties</a></li>
+      <li><a href="otp/OTP/useTOTPPaddingForHOTP.html">useTOTPPaddingForHOTP</a></li>
     
       <li class="section-title"><a href="otp/OTP-class.html#static-methods">Static methods</a></li>
       <li><a href="otp/OTP/constantTimeVerification.html">constantTimeVerification</a></li>
@@ -246,6 +272,7 @@
       <li><a href="otp/OTP/generateTOTPCode.html">generateTOTPCode</a></li>
       <li><a href="otp/OTP/generateTOTPCodeString.html">generateTOTPCodeString</a></li>
       <li><a href="otp/OTP/getAlgorithm.html">getAlgorithm</a></li>
+      <li><a href="otp/OTP/getInternalDigest.html">getInternalDigest</a></li>
       <li><a href="otp/OTP/randomSecret.html">randomSecret</a></li>
     
     
@@ -257,7 +284,7 @@
 <footer>
   <span class="no-break">
     otp
-      2.0.2
+      2.1.0
   </span>
 
   <!-- footer-text placeholder -->

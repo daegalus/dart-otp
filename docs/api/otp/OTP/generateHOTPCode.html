@@ -70,6 +70,8 @@
         <li class="section-title inherited"><a href="otp/OTP-class.html#operators">Operators</a></li>
         <li class="inherited"><a href="otp/OTP/operator_equals.html">operator ==</a></li>
     
+        <li class="section-title"><a href="otp/OTP-class.html#static-properties">Static properties</a></li>
+        <li><a href="otp/OTP/useTOTPPaddingForHOTP.html">useTOTPPaddingForHOTP</a></li>
     
         <li class="section-title"><a href="otp/OTP-class.html#static-methods">Static methods</a></li>
         <li><a href="otp/OTP/constantTimeVerification.html">constantTimeVerification</a></li>
@@ -78,6 +80,7 @@
         <li><a href="otp/OTP/generateTOTPCode.html">generateTOTPCode</a></li>
         <li><a href="otp/OTP/generateTOTPCodeString.html">generateTOTPCodeString</a></li>
         <li><a href="otp/OTP/getAlgorithm.html">getAlgorithm</a></li>
+        <li><a href="otp/OTP/getInternalDigest.html">getInternalDigest</a></li>
         <li><a href="otp/OTP/randomSecret.html">randomSecret</a></li>
     
     
@@ -91,7 +94,7 @@
     <section class="multi-line-signature">
       <span class="returntype">int</span>
             <span class="name ">generateHOTPCode</span>
-(<wbr><span class="parameter" id="generateHOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateHOTPCode-param-counter"><span class="type-annotation">int</span> <span class="parameter-name">counter</span>, {</span> <span class="parameter" id="generateHOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateHOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span></span> })
+(<wbr><span class="parameter" id="generateHOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateHOTPCode-param-counter"><span class="type-annotation">int</span> <span class="parameter-name">counter</span>, {</span> <span class="parameter" id="generateHOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateHOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA1</span></span> })
       
     </section>
     <section class="desc markdown">
@@ -103,8 +106,11 @@ These settings are defaulted to the RFC standard but can be changed.</p>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA256}) {
-  return _generateCode(secret, counter, length, getAlgorithm(algorithm));
+      <pre class="language-dart"><code class="language-dart">static int generateHOTPCode(String secret, int counter,
+    {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+  return _generateCode(secret, counter, length, getAlgorithm(algorithm),
+      _getAlgorithmByteLength(algorithm),
+      isHOTP: true);
 }</code></pre>
     </section>
 
@@ -118,7 +124,7 @@ These settings are defaulted to the RFC standard but can be changed.</p>
 <footer>
   <span class="no-break">
     otp
-      2.0.2
+      2.1.0
   </span>
 
   <!-- footer-text placeholder -->

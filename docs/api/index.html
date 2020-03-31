@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 0.28.8">
+  <meta name="generator" content="made with love by dartdoc 0.29.1">
   <meta name="description" content="otp API docs, for the Dart programming language.">
   <title>otp - Dart API docs</title>
 
@@ -55,28 +55,36 @@
       <section class="desc markdown">
         <p><a href="https://travis-ci.org/Daegalus/dart-otp"><img src="https://travis-ci.org/Daegalus/dart-otp.svg?branch=master" alt="Build Status"></a></p>
 <h1 id="dart-otp">dart-otp</h1>
-<p>RFC6238 Time-Based One-Time Password / Google Authenticator Library</p>
+<p>RFC4226/RFC6238 One-Time Password / Google Authenticator Library</p>
 <p>Features:</p>
 <ul>
-<li>Generate TOTP and HOTP codes.</li>
+<li>Generate TOTP (RFC6238) and HOTP (RFC4226) codes.</li>
 <li><a href="http://daegalus.github.com/dart-otp/api/">Annotated source code</a></li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
 <h3 id="pubspec">Pubspec</h3>
 <p>pub.dartlang.org: (you can use 'any' instead of a version if you just want the latest always)</p>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  otp: 2.0.2
+  otp: 2.1.0
 </code></pre>
 <pre class="language-dart"><code class="language-dart">import 'package:otp/otp.dart';
 </code></pre>
 <p>Start generating tokens.</p>
-<pre class="language-dart"><code class="language-dart">// Generate TOTP code.
-OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", 1362302550000); // -&gt; 238158
+<pre class="language-dart"><code class="language-dart">// Generate TOTP code. (String versin of function incase of leading 0)
+OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXP", 1362302550000); // -&gt; '637305'
 
-// base32 decoding to original string.
-OTP.generateHOTPCode("JBSWY3DPEHPK3PXP", 7); // -&gt; 449891
+// Generate HOTP Code.
+OTP.generateHOTPCodeString("JBSWY3DPEHPK3PXP", 7); // -&gt; '346239'
 </code></pre>
 <h2 id="api">API</h2>
+<h3 id="notes">Notes</h3>
+<p>This library does not support any other secret input other than Base32. It is what is used standard most places, and by Google Authenticator.
+If your secrets are not Base32 forms, please use my Base32 library (the one I use as a dependency for this library) or any other base32 library to encode your secret before passing it into the functions. All generate functions force decode of Base32.</p>
+<h3 id="global-settings">Global Settings</h3>
+<p><code>useTOTPPaddingForHOTP</code> (bool, default: false) 
+Uses the TOTP padding method for handling secrets bigger or smaller than the mandatory sizes for SHA256/SHA512.
+This is needed as HOTP does not have an official method of using SHA256 or SHA512 in the RFC spec and most libraries don't pad HOTP for use with SHA256 or SHA512. (examples: otplib and speakeasy from Node.js)</p>
+<p>If you enable this, it will use the same padding as TOTP (repeating the secret to the right length) but might cause incompatibilies with other libraries. I am defaulting to no padding, as this is the predominant behavior I am finding for HOTP.</p>
 <h3 id="otpgeneratetotpcodestring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1">OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})</h3>
 <p>Generate a code for the provided secret and time.</p>
 <ul>
@@ -151,7 +159,7 @@ I have yet to get them to be equal. but 1 millisecond should be an OK room for e
 <footer>
   <span class="no-break">
     otp
-      2.0.2
+      2.1.0
   </span>
 
   <!-- footer-text placeholder -->

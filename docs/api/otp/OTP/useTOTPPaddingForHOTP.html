@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the generateTOTPCode method from the OTP class, for the Dart programming language.">
-  <title>generateTOTPCode method - OTP class - otp library - Dart API</title>
+  <meta name="description" content="API docs for the useTOTPPaddingForHOTP property from the OTP class, for the Dart programming language.">
+  <title>useTOTPPaddingForHOTP property - OTP class - otp library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
   <base href="../..">
 
@@ -27,9 +27,9 @@
     <li><a href="index.html">otp</a></li>
     <li><a href="otp/otp-library.html">otp</a></li>
     <li><a href="otp/OTP-class.html">OTP</a></li>
-    <li class="self-crumb">generateTOTPCode method</li>
+    <li class="self-crumb">useTOTPPaddingForHOTP property</li>
   </ol>
-  <div class="self-name">generateTOTPCode</div>
+  <div class="self-name">useTOTPPaddingForHOTP</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="index.html">otp</a></li>
       <li><a href="otp/otp-library.html">otp</a></li>
       <li><a href="otp/OTP-class.html">OTP</a></li>
-      <li class="self-crumb">generateTOTPCode method</li>
+      <li class="self-crumb">useTOTPPaddingForHOTP property</li>
     </ol>
     
     <h5>OTP class</h5>
@@ -89,33 +89,22 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">generateTOTPCode</span> method</h1></div>
+      <div><h1><span class="kind-property">useTOTPPaddingForHOTP</span> property</h1></div>
 
-    <section class="multi-line-signature">
-      <span class="returntype">int</span>
-            <span class="name ">generateTOTPCode</span>
-(<wbr><span class="parameter" id="generateTOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateTOTPCode-param-time"><span class="type-annotation">int</span> <span class="parameter-name">time</span>, {</span> <span class="parameter" id="generateTOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateTOTPCode-param-interval"><span class="type-annotation">int</span> <span class="parameter-name">interval</span>: <span class="default-value">30</span>, </span> <span class="parameter" id="generateTOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span></span> })
-      
-    </section>
-    <section class="desc markdown">
-      <p>Generates a Time-based one time password code</p>
-<p>Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
-A interval of 1 will be the same as if passing time into the HOTPCode function..</p>
-<p>Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
-These settings are defaulted to the RFC standard but can be changed.</p>
-    </section>
-    
-    <section class="summary source-code" id="source">
-      <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">static int generateTOTPCode(String secret, int time,
-    {int length = 6,
-    int interval = 30,
-    Algorithm algorithm = Algorithm.SHA256}) {
-  time = (((time ~&#47; 1000).round()) ~&#47; interval).floor();
-  return _generateCode(secret, time, length, getAlgorithm(algorithm),
-      _getAlgorithmByteLength(algorithm));
-}</code></pre>
-    </section>
+        <section class="multi-line-signature">
+          <span class="returntype">bool</span>
+          <span class="name ">useTOTPPaddingForHOTP</span>
+          <div class="features">read / write</div>
+        </section>
+        <section class="desc markdown">
+          <p>Used to enable TOTP style padding of the secret for SHA256 and SHA512 usage with HOTP. False by default.</p>
+        </section>
+                <section class="summary source-code" id="source">
+          <h2><span>Implementation</span></h2>
+          <pre class="language-dart"><code class="language-dart">static bool useTOTPPaddingForHOTP = false
+
+</code></pre>
+        </section>
 
   </div> <!-- /.main-content -->
 

@@ -70,6 +70,8 @@
         <li class="section-title inherited"><a href="otp/OTP-class.html#operators">Operators</a></li>
         <li class="inherited"><a href="otp/OTP/operator_equals.html">operator ==</a></li>
     
+        <li class="section-title"><a href="otp/OTP-class.html#static-properties">Static properties</a></li>
+        <li><a href="otp/OTP/useTOTPPaddingForHOTP.html">useTOTPPaddingForHOTP</a></li>
     
         <li class="section-title"><a href="otp/OTP-class.html#static-methods">Static methods</a></li>
         <li><a href="otp/OTP/constantTimeVerification.html">constantTimeVerification</a></li>
@@ -78,6 +80,7 @@
         <li><a href="otp/OTP/generateTOTPCode.html">generateTOTPCode</a></li>
         <li><a href="otp/OTP/generateTOTPCodeString.html">generateTOTPCodeString</a></li>
         <li><a href="otp/OTP/getAlgorithm.html">getAlgorithm</a></li>
+        <li><a href="otp/OTP/getInternalDigest.html">getInternalDigest</a></li>
         <li><a href="otp/OTP/randomSecret.html">randomSecret</a></li>
     
     
@@ -101,7 +104,8 @@
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">static bool constantTimeVerification(final String code, final String othercode) {
+      <pre class="language-dart"><code class="language-dart">static bool constantTimeVerification(
+    final String code, final String othercode) {
   if (code.length != othercode.length) {
     return false;
   }
@@ -125,7 +129,7 @@
 <footer>
   <span class="no-break">
     otp
-      2.0.2
+      2.1.0
   </span>
 
   <!-- footer-text placeholder -->

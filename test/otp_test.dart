@@ -1,12 +1,11 @@
-import "package:test/test.dart";
+import 'package:test/test.dart';
 import 'package:otp/otp.dart';
 import 'package:base32/base32.dart';
-import 'package:convert/convert.dart';
 
-main() {
-  final int HALFMINUTES = 45410085;
-  final int SECONDS = HALFMINUTES * 30;
-  final int TIME = SECONDS * 1000;
+void main() {
+  final HALFMINUTES = 45410085;
+  final SECONDS = HALFMINUTES * 30;
+  final TIME = SECONDS * 1000;
 
   group('[Code Gen Test]', () {
     test(
@@ -45,7 +44,7 @@ main() {
     });
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA256', () {
-      var code = OTP.generateTOTPCode("JBSWY3DPEHPK3PXP", TIME,
+      var code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
           algorithm: Algorithm.SHA256);
       expect(code, equals(637305));
     });
@@ -58,7 +57,7 @@ main() {
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 as String', () {
       var code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
-      expect(code, equals("637305"));
+      expect(code, equals('637305'));
     });
 
     test('Verify that padding flag for HOTP works.', () {
