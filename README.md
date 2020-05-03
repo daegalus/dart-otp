@@ -62,7 +62,7 @@ Generate a code for the provided secret and time.
 
 Returns an `int` code. Does not preserve leading zeros.
 
-### OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})
+### OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: true})
 
 Generate a code for the provided secret and time.
 

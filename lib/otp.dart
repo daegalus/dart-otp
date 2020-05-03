@@ -37,7 +37,7 @@ class OTP {
   static String generateTOTPCodeString(String secret, int time,
       {int length = 6,
       int interval = 30,
-      Algorithm algorithm = Algorithm.SHA256, isGoogle = false}) {
+      Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
     var code =
         '${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}';
     return code.padLeft(length, '0');

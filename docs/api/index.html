@@ -96,7 +96,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 <li>'isGoogle' - (bool) flag to turn off secret padding for Google Auth.</li>
 </ul>
 <p>Returns an <code>int</code> code. Does not preserve leading zeros.</p>
-<h3 id="otpgeneratetotpcodestringstring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1">OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})</h3>
+<h3 id="otpgeneratetotpcodestringstring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1-bool-isgoogle-true">OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: true})</h3>
 <p>Generate a code for the provided secret and time.</p>
 <ul>
 <li><code>secret</code> - (String) A Base32 String.</li>
