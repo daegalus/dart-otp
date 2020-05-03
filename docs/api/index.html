@@ -93,7 +93,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 <li><code>length</code> - (int) The length of the resulting code.</li>
 <li><code>interval</code> - (int) Refresh interval to get a new code.</li>
 <li><code>algorithm</code> - (Algorithm) Hashing method.</li>
-<li>'isGoogle' - (bool) flag to turn off secret padding for Google Auth.</li>
+<li><code>isGoogle</code> - (bool) flag to turn off secret padding for Google Auth.</li>
 </ul>
 <p>Returns an <code>int</code> code. Does not preserve leading zeros.</p>
 <h3 id="otpgeneratetotpcodestringstring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1-bool-isgoogle-true">OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: true})</h3>
@@ -104,7 +104,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 <li><code>length</code> - (int) The length of the resulting code.</li>
 <li><code>interval</code> - (int) Refresh interval to get a new code.</li>
 <li><code>algorithm</code> - (Algorithm) Hashing method.</li>
-<li>'isGoogle' - (bool) flag to turn off secret padding for Google Auth.</li>
+<li><code>isGoogle</code> - (bool) flag to turn off secret padding for Google Auth.</li>
 </ul>
 <p>Returns an <code>String</code> code. Preserves leading zeros.</p>
 <h3 id="otpgeneratehotpcodestring-secret-int-counter-int-length-6">OTP.generateHOTPCode(String secret, int counter, {int length: 6})</h3>

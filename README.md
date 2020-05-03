@@ -58,7 +58,7 @@ Generate a code for the provided secret and time.
 - `length` - (int) The length of the resulting code.
 - `interval` - (int) Refresh interval to get a new code.
 - `algorithm` - (Algorithm) Hashing method.
-- 'isGoogle' - (bool) flag to turn off secret padding for Google Auth.
+- `isGoogle` - (bool) flag to turn off secret padding for Google Auth.
 
 Returns an `int` code. Does not preserve leading zeros.
 
@@ -71,7 +71,7 @@ Generate a code for the provided secret and time.
 - `length` - (int) The length of the resulting code.
 - `interval` - (int) Refresh interval to get a new code.
 - `algorithm` - (Algorithm) Hashing method.
-- 'isGoogle' - (bool) flag to turn off secret padding for Google Auth.
+- `isGoogle` - (bool) flag to turn off secret padding for Google Auth.
 
 Returns an `String` code. Preserves leading zeros.
 
