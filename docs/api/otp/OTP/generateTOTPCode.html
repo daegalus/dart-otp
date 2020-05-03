@@ -94,7 +94,7 @@
     <section class="multi-line-signature">
       <span class="returntype">int</span>
             <span class="name ">generateTOTPCode</span>
-(<wbr><span class="parameter" id="generateTOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateTOTPCode-param-time"><span class="type-annotation">int</span> <span class="parameter-name">time</span>, {</span> <span class="parameter" id="generateTOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateTOTPCode-param-interval"><span class="type-annotation">int</span> <span class="parameter-name">interval</span>: <span class="default-value">30</span>, </span> <span class="parameter" id="generateTOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span></span> })
+(<wbr><span class="parameter" id="generateTOTPCode-param-secret"><span class="type-annotation">String</span> <span class="parameter-name">secret</span>, </span> <span class="parameter" id="generateTOTPCode-param-time"><span class="type-annotation">int</span> <span class="parameter-name">time</span>, {</span> <span class="parameter" id="generateTOTPCode-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>: <span class="default-value">6</span>, </span> <span class="parameter" id="generateTOTPCode-param-interval"><span class="type-annotation">int</span> <span class="parameter-name">interval</span>: <span class="default-value">30</span>, </span> <span class="parameter" id="generateTOTPCode-param-algorithm"><span class="type-annotation"><a href="otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span>: <span class="default-value">Algorithm.SHA256</span>, </span> <span class="parameter" id="generateTOTPCode-param-isGoogle"><span class="type-annotation">bool</span> <span class="parameter-name">isGoogle</span>: <span class="default-value">false</span></span> })
       
     </section>
     <section class="desc markdown">
@@ -110,7 +110,7 @@ These settings are defaulted to the RFC standard but can be changed.</p>
       <pre class="language-dart"><code class="language-dart">static int generateTOTPCode(String secret, int time,
     {int length = 6,
     int interval = 30,
-    Algorithm algorithm = Algorithm.SHA256}) {
+    Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
   time = (((time ~&#47; 1000).round()) ~&#47; interval).floor();
   return _generateCode(secret, time, length, getAlgorithm(algorithm),
       _getAlgorithmByteLength(algorithm));
@@ -127,7 +127,7 @@ These settings are defaulted to the RFC standard but can be changed.</p>
 <footer>
   <span class="no-break">
     otp
-      2.1.0
+      2.2.0
   </span>
 
   <!-- footer-text placeholder -->

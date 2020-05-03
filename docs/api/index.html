@@ -65,7 +65,7 @@
 <h3 id="pubspec">Pubspec</h3>
 <p>pub.dartlang.org: (you can use 'any' instead of a version if you just want the latest always)</p>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  otp: 2.1.0
+  otp: 2.2.0
 </code></pre>
 <pre class="language-dart"><code class="language-dart">import 'package:otp/otp.dart';
 </code></pre>
@@ -85,7 +85,7 @@ If your secrets are not Base32 forms, please use my Base32 library (the one I us
 Uses the TOTP padding method for handling secrets bigger or smaller than the mandatory sizes for SHA256/SHA512.
 This is needed as HOTP does not have an official method of using SHA256 or SHA512 in the RFC spec and most libraries don't pad HOTP for use with SHA256 or SHA512. (examples: otplib and speakeasy from Node.js)</p>
 <p>If you enable this, it will use the same padding as TOTP (repeating the secret to the right length) but might cause incompatibilies with other libraries. I am defaulting to no padding, as this is the predominant behavior I am finding for HOTP.</p>
-<h3 id="otpgeneratetotpcodestring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1">OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})</h3>
+<h3 id="otpgeneratetotpcodestring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1-bool-isgoogle-true">OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: true})</h3>
 <p>Generate a code for the provided secret and time.</p>
 <ul>
 <li><code>secret</code> - (String) A Base32 String.</li>
@@ -93,6 +93,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 <li><code>length</code> - (int) The length of the resulting code.</li>
 <li><code>interval</code> - (int) Refresh interval to get a new code.</li>
 <li><code>algorithm</code> - (Algorithm) Hashing method.</li>
+<li>'isGoogle' - (bool) flag to turn off secret padding for Google Auth.</li>
 </ul>
 <p>Returns an <code>int</code> code. Does not preserve leading zeros.</p>
 <h3 id="otpgeneratetotpcodestringstring-secret-int-currenttime-int-length-6-int-interval-30-algorithm-algorithm-algorithmsha1">OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})</h3>
@@ -103,6 +104,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 <li><code>length</code> - (int) The length of the resulting code.</li>
 <li><code>interval</code> - (int) Refresh interval to get a new code.</li>
 <li><code>algorithm</code> - (Algorithm) Hashing method.</li>
+<li>'isGoogle' - (bool) flag to turn off secret padding for Google Auth.</li>
 </ul>
 <p>Returns an <code>String</code> code. Preserves leading zeros.</p>
 <h3 id="otpgeneratehotpcodestring-secret-int-counter-int-length-6">OTP.generateHOTPCode(String secret, int counter, {int length: 6})</h3>
@@ -159,7 +161,7 @@ I have yet to get them to be equal. but 1 millisecond should be an OK room for e
 <footer>
   <span class="no-break">
     otp
-      2.1.0
+      2.2.0
   </span>
 
   <!-- footer-text placeholder -->
