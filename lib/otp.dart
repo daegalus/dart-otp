@@ -21,7 +21,7 @@ class OTP {
   static int generateTOTPCode(String secret, int time,
       {int length = 6,
       int interval = 30,
-      Algorithm algorithm = Algorithm.SHA256}) {
+      Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm),
         _getAlgorithmByteLength(algorithm));
@@ -37,7 +37,7 @@ class OTP {
   static String generateTOTPCodeString(String secret, int time,
       {int length = 6,
       int interval = 30,
-      Algorithm algorithm = Algorithm.SHA256}) {
+      Algorithm algorithm = Algorithm.SHA256, isGoogle = false}) {
     var code =
         '${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}';
     return code.padLeft(length, '0');
@@ -69,14 +69,14 @@ class OTP {
 
   static int _generateCode(
       String secret, int time, int length, Hash mac, int secretbytes,
-      {bool isHOTP = false}) {
+      {bool isHOTP = false, bool isGoogle = false}) {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
 
-    if (!isHOTP || useTOTPPaddingForHOTP) {
+    if (!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) {
       secretList = _padSecret(secretList, secretbytes);
-    } else {
+    } else if (isHOTP && !isGoogle) {
       _showHOTPWarning(mac);
     }
 
@@ -140,7 +140,17 @@ class OTP {
 
   static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
-    return Uint8List(8)..buffer.asByteData().setInt64(0, long);
+    var byteArray = Uint8List(8);
+    
+    for (var index = byteArray.length - 1; index >= 0; index--) {
+      var byte = long & 0xff;
+      byteArray[index] = byte;
+      long = (long - byte) ~/ 256;
+    }
+    return byteArray;
+    
+    // Cleaner implementation but breaks in dart2js/flutter web
+    // return Uint8List(8)..buffer.asByteData().setInt64(0, long);
   }
 
   static Uint8List _padSecret(Uint8List secret, int length) {

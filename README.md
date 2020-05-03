@@ -17,7 +17,7 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 2.1.0
+  otp: 2.2.0
 ```
 
 ```dart
@@ -49,7 +49,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 
 If you enable this, it will use the same padding as TOTP (repeating the secret to the right length) but might cause incompatibilies with other libraries. I am defaulting to no padding, as this is the predominant behavior I am finding for HOTP.
 
-### OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1})
+### OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: true})
 
 Generate a code for the provided secret and time.
 
@@ -58,6 +58,7 @@ Generate a code for the provided secret and time.
 - `length` - (int) The length of the resulting code.
 - `interval` - (int) Refresh interval to get a new code.
 - `algorithm` - (Algorithm) Hashing method.
+- 'isGoogle' - (bool) flag to turn off secret padding for Google Auth.
 
 Returns an `int` code. Does not preserve leading zeros.
 
@@ -70,6 +71,7 @@ Generate a code for the provided secret and time.
 - `length` - (int) The length of the resulting code.
 - `interval` - (int) Refresh interval to get a new code.
 - `algorithm` - (Algorithm) Hashing method.
+- 'isGoogle' - (bool) flag to turn off secret padding for Google Auth.
 
 Returns an `String` code. Preserves leading zeros.
 
