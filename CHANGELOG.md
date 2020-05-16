@@ -1,4 +1,8 @@
 # Changelog
+
+v2.2.0+1
+- Correctly use Google Auth flag (`isGoogle`) to disable padding.
+
 v2.2.0
 - Add Google Auth flag, because they do SHA1 TOTP without Padding the secret.
 - Reverting _int2bytes function back to old implementation, as the new on uses int64 which breaks flutter web and dart2js as it doesn't have support for Int64.
