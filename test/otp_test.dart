@@ -35,6 +35,16 @@ void main() {
       expect(code, equals(449891));
     });
 
+    test('Verify isGoogle is passed along to disable padding', () {
+      var code = OTP.generateTOTPCodeString(
+        'Q4D65VKZ3T5NERSB',
+        1589633445440,
+        algorithm: Algorithm.SHA1,
+        isGoogle: true,
+      );
+      expect(code, equals('700998'));
+    });
+
     test(
         'Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA1 (old default)',
         () {
