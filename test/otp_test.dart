@@ -60,6 +60,14 @@ void main() {
       expect(code, equals('637305'));
     });
 
+    test(
+        'Generated code for Sun Mar 03 09:22:30 2013 +0000 using Google Authenticator pattern',
+        () {
+      var code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
+          algorithm: Algorithm.SHA1, isGoogle: true);
+      expect(code, equals(238158));
+    });
+
     test('Verify that padding flag for HOTP works.', () {
       var code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', 0);
 
