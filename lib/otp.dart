@@ -24,7 +24,7 @@ class OTP {
       Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm),
-        _getAlgorithmByteLength(algorithm));
+        _getAlgorithmByteLength(algorithm), isGoogle: isGoogle);
   }
 
   /// Generates a Time-based one time password code and return as a 0 padded string.
@@ -39,7 +39,7 @@ class OTP {
       int interval = 30,
       Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
     var code =
-        '${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm)}';
+        '${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm, isGoogle: isGoogle)}';
     return code.padLeft(length, '0');
   }
 
