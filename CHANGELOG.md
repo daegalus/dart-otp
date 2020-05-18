@@ -1,7 +1,7 @@
 # Changelog
 
 v2.2.1
-- Correctly use Google Auth flag (`isGoogle`) to disable padding.
+- Correctly use Google Auth flag (`isGoogle`) to disable padding. (thanks hpoul)
 
 v2.2.0
 - Add Google Auth flag, because they do SHA1 TOTP without Padding the secret.
