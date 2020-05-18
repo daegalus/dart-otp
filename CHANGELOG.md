@@ -1,6 +1,6 @@
 # Changelog
 
-v2.2.0+1
+v2.2.1
 - Correctly use Google Auth flag (`isGoogle`) to disable padding.
 
 v2.2.0
