@@ -1,5 +1,8 @@
 # Changelog
 
+v2.2.2
+- Update quick_log to latest version
+
 v2.2.1
 - Correctly use Google Auth flag (`isGoogle`) to disable padding. (thanks hpoul)
 
