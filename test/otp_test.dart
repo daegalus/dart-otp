@@ -3,40 +3,40 @@ import 'package:otp/otp.dart';
 import 'package:base32/base32.dart';
 
 void main() {
-  final HALFMINUTES = 45410085;
-  final SECONDS = HALFMINUTES * 30;
-  final TIME = SECONDS * 1000;
+  const HALFMINUTES = 45410085;
+  const SECONDS = HALFMINUTES * 30;
+  const TIME = SECONDS * 1000;
 
   group('[Code Gen Test]', () {
     test(
         'Generated code for Sun Mar 03 09:22:30 2013 +0000 using default algorithm and length',
         () {
-      var code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME);
+      final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME);
       expect(code, equals(637305));
     });
 
     test(
         'Generated code for Sun Mar 03 09:22:30 2013 +0000 using default algorithm and length of 7',
         () {
-      var code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME + 30000,
+      final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME + 30000,
           length:
               7); // Need to adjust by 30 seconds, as the original code only had 6 digits and would normally be padded with 0s
       expect(code, equals(1203843));
     });
 
     test('Generated code for counter 7 using SHA256', () {
-      var code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7,
+      final code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7,
           algorithm: Algorithm.SHA256);
       expect(code, equals(346239));
     });
 
     test('Generated code for counter 7 using SHA1', () {
-      var code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7);
+      final code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7);
       expect(code, equals(449891));
     });
 
     test('Verify isGoogle is passed along to disable padding', () {
-      var code = OTP.generateTOTPCodeString(
+      final code = OTP.generateTOTPCodeString(
         'Q4D65VKZ3T5NERSB',
         1589633445440,
         algorithm: Algorithm.SHA1,
@@ -48,35 +48,35 @@ void main() {
     test(
         'Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA1 (old default)',
         () {
-      var code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
+      final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
           algorithm: Algorithm.SHA1);
       expect(code, equals(345785));
     });
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA256', () {
-      var code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
+      final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
           algorithm: Algorithm.SHA256);
       expect(code, equals(637305));
     });
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA512', () {
-      var code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
+      final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
           algorithm: Algorithm.SHA512);
       expect(code, equals(402314));
     });
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 as String', () {
-      var code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
+      final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
       expect(code, equals('637305'));
     });
 
     test('Verify that padding flag for HOTP works.', () {
-      var code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', 0);
+      final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', 0);
 
-      var hcode = OTP.generateHOTPCodeString('JBSWY3DPEHPK3PXP', 0,
+      final hcode = OTP.generateHOTPCodeString('JBSWY3DPEHPK3PXP', 0,
           algorithm: Algorithm.SHA256);
       OTP.useTOTPPaddingForHOTP = true;
-      var hcodeP = OTP.generateHOTPCodeString('JBSWY3DPEHPK3PXP', 0,
+      final hcodeP = OTP.generateHOTPCodeString('JBSWY3DPEHPK3PXP', 0,
           algorithm: Algorithm.SHA256);
       OTP.useTOTPPaddingForHOTP = false;
       expect(code, equals(hcodeP), reason: 'TOTP eq HOTP');
@@ -84,8 +84,8 @@ void main() {
     });
 
     test('Verify comparison works', () {
-      var code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
-      var othercode = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
+      final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
+      final othercode = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
 
       expect(OTP.constantTimeVerification(code, othercode), equals(true));
     });
@@ -93,31 +93,31 @@ void main() {
     test(
         'Generate a cryptographically secure random secret in base32 string format',
         () {
-      var secret = OTP.randomSecret();
+      final secret = OTP.randomSecret();
       assert(secret.isNotEmpty);
     });
 
     test('Verify comparison timing', () {
-      var code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME);
-      var othercode =
+      final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME);
+      final othercode =
           OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME + 30000);
-      var othercodeSame =
+      final othercodeSame =
           "${OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME)}";
-      var w = Stopwatch();
+      final w = Stopwatch();
       // cache stopwatch functions to avoid affecting timing.
       w.start();
       w.stop();
       w.reset();
 
       w.start();
-      var resultDifferent = OTP.constantTimeVerification(code, othercode);
+      final resultDifferent = OTP.constantTimeVerification(code, othercode);
       w.stop();
-      var diff1 = w.elapsedMicroseconds;
+      final diff1 = w.elapsedMicroseconds;
       w.reset();
       w.start();
-      var resultSame = OTP.constantTimeVerification(code, othercodeSame);
+      final resultSame = OTP.constantTimeVerification(code, othercodeSame);
       w.stop();
-      var diff2 = w.elapsedMicroseconds;
+      final diff2 = w.elapsedMicroseconds;
 
       print('resultDifferent: $diff1');
       print('resultSame: $diff2');
@@ -157,14 +157,14 @@ void main() {
 
     for (var i = 0; i < digests.length; i++) {
       const secret = '12345678901234567890';
-      var secretEncoded = base32.encodeString(secret);
-      var digest = digests[i];
-      var token = tokens[i];
+      final secretEncoded = base32.encodeString(secret);
+      final digest = digests[i];
+      final token = tokens[i];
 
       test('Counter: $i | Token $token | Digest $digest', () {
-        var code = OTP.generateHOTPCodeString(secretEncoded, i,
+        final code = OTP.generateHOTPCodeString(secretEncoded, i,
             algorithm: Algorithm.SHA1);
-        var internal = OTP.getInternalDigest(
+        final internal = OTP.getInternalDigest(
             secretEncoded, i, 6, OTP.getAlgorithm(Algorithm.SHA1));
         expect(internal, equals(digest));
         expect(code, equals(token));
@@ -285,20 +285,20 @@ void main() {
     ];
 
     for (var i = 0; i < dataset.length; i++) {
-      var secret = '12345678901234567890';
-      var epoch = dataset[i]['epoch'] as int;
-      var counter = int.parse(dataset[i]['counter'], radix: 16);
-      var token = dataset[i]['token'];
-      var algorithm = dataset[i]['algorithm'] as Algorithm;
+      const secret = '12345678901234567890';
+      final epoch = dataset[i]['epoch'] as int;
+      final counter = int.parse(dataset[i]['counter'], radix: 16);
+      final token = dataset[i]['token'];
+      final algorithm = dataset[i]['algorithm'] as Algorithm;
 
       test(
           'Epoch: $epoch | Counter: $counter | Token: $token | Algorithm: $algorithm',
           () {
-        var secretEncoded = base32.encodeString(secret);
+        final secretEncoded = base32.encodeString(secret);
 
-        var time = epoch * 1000;
+        final time = epoch * 1000;
 
-        var code = OTP.generateTOTPCodeString(secretEncoded, time,
+        final code = OTP.generateTOTPCodeString(secretEncoded, time,
             algorithm: algorithm, length: 8);
 
         //OTP.useTOTPPaddingForHOTP = true;

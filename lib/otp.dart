@@ -41,7 +41,7 @@ class OTP {
       int interval = 30,
       Algorithm algorithm = Algorithm.SHA256,
       bool isGoogle = false}) {
-    var code =
+    final code =
         '${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm, isGoogle: isGoogle)}';
     return code.padLeft(length, '0');
   }
@@ -65,7 +65,7 @@ class OTP {
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateHOTPCodeString(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
-    var code =
+    final code =
         '${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}';
     return code.padLeft(length, '0');
   }
@@ -83,14 +83,14 @@ class OTP {
       _showHOTPWarning(mac);
     }
 
-    var timebytes = _int2bytes(time);
+    final timebytes = _int2bytes(time);
 
-    var hmac = Hmac(mac, secretList);
-    var digest = hmac.convert(timebytes).bytes;
+    final hmac = Hmac(mac, secretList);
+    final digest = hmac.convert(timebytes).bytes;
 
-    var offset = digest[digest.length - 1] & 0x0f;
+    final offset = digest[digest.length - 1] & 0x0f;
 
-    var binary = ((digest[offset] & 0x7f) << 24) |
+    final binary = ((digest[offset] & 0x7f) << 24) |
         ((digest[offset + 1] & 0xff) << 16) |
         ((digest[offset + 2] & 0xff) << 8) |
         (digest[offset + 3] & 0xff);
@@ -104,11 +104,11 @@ class OTP {
       String secret, int counter, int length, Hash mac) {
     length = (length > 0) ? length : 6;
 
-    var secretList = base32.decode(secret);
-    var timebytes = _int2bytes(counter);
+    final secretList = base32.decode(secret);
+    final timebytes = _int2bytes(counter);
 
-    var hmac = Hmac(mac, secretList);
-    var digest = hmac.convert(timebytes).bytes;
+    final hmac = Hmac(mac, secretList);
+    final digest = hmac.convert(timebytes).bytes;
 
     return hex.encode(digest);
   }
@@ -132,8 +132,8 @@ class OTP {
 
   /// Generates a cryptographically secure random secret in base32 string format.
   static String randomSecret() {
-    var rand = Random.secure();
-    var bytes = <int>[];
+    final rand = Random.secure();
+    final bytes = <int>[];
 
     for (var i = 0; i < 10; i++) {
       bytes.add(rand.nextInt(256));
@@ -144,10 +144,10 @@ class OTP {
 
   static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
-    var byteArray = Uint8List(8);
+    final byteArray = Uint8List(8);
 
     for (var index = byteArray.length - 1; index >= 0; index--) {
-      var byte = long & 0xff;
+      final byte = long & 0xff;
       byteArray[index] = byte;
       long = (long - byte) ~/ 256;
     }
@@ -161,7 +161,7 @@ class OTP {
     if (secret.length == length) return secret;
 
     // ignore: prefer_collection_literals
-    var newList = List<int>();
+    final newList = List<int>();
     for (var i = 0; i * secret.length < length; i++) {
       newList.addAll(secret);
     }
@@ -171,7 +171,7 @@ class OTP {
 
   static void _showHOTPWarning(Hash mac) {
     if (mac is Sha256 || mac is Sha512) {
-      var logger = Logger('otp');
+      const logger = Logger('otp');
       logger.warning(
           'Using non-SHA1 hashing with HOTP is not part of the RFC for HOTP and may cause incompatibilities between different library implementatiions. This library attempts to match behavior with other libraries as best it can.');
     }
