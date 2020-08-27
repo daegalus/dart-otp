@@ -7,6 +7,7 @@ import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:quick_log/quick_log.dart';
 
+/// RFC4226/RFC6238 One-Time Password / Google Authenticator Library
 class OTP {
   /// Used to enable TOTP style padding of the secret for SHA256 and SHA512 usage with HOTP. False by default.
   static bool useTOTPPaddingForHOTP = false;
@@ -206,4 +207,14 @@ class OTP {
   }
 }
 
-enum Algorithm { SHA1, SHA256, SHA512 }
+/// Hashing algorithm used to generate one time password codes
+enum Algorithm {
+  /// Use SHA1
+  SHA1,
+
+  /// Use SHA256
+  SHA256,
+
+  /// Use SHA512
+  SHA512,
+}
