@@ -3,6 +3,7 @@
 v2.2.3
 - Improve pub package score
 - Use const and final instead of var
+- Document public API members
 
 v2.2.2
 - Update quick_log to latest version
