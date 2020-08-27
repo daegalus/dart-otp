@@ -7,7 +7,6 @@ analyzer:
     missing_required_param: warning
     missing_return: warning
     public_member_api_docs: warning
-    todo: ignore
 
 linter:
   rules:
@@ -25,7 +24,6 @@ linter:
     - control_flow_in_finally
     - directives_ordering
     - empty_statements
-    - flutter_style_todos
     - hash_and_equals
     - implementation_imports
     - iterable_contains_unrelated_type
@@ -61,4 +59,3 @@ linter:
     - unnecessary_overrides
     - unnecessary_parenthesis
     - unnecessary_statements
-    - use_full_hex_values_for_flutter_colors
