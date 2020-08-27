@@ -25,7 +25,8 @@ class OTP {
       bool isGoogle = false}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm),
-        _getAlgorithmByteLength(algorithm), isGoogle: isGoogle);
+        _getAlgorithmByteLength(algorithm),
+        isGoogle: isGoogle);
   }
 
   /// Generates a Time-based one time password code and return as a 0 padded string.
@@ -97,9 +98,10 @@ class OTP {
     return binary % pow(10, length);
   }
 
-  /// Mostly used for testing purposes, but this can get you the internal digest based on your settings. 
+  /// Mostly used for testing purposes, but this can get you the internal digest based on your settings.
   /// No handholding for this function, so you need to know exactly what to pass in.
-  static String getInternalDigest(String secret, int counter, int length, Hash mac) {
+  static String getInternalDigest(
+      String secret, int counter, int length, Hash mac) {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
@@ -143,14 +145,14 @@ class OTP {
   static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
     var byteArray = Uint8List(8);
-    
+
     for (var index = byteArray.length - 1; index >= 0; index--) {
       var byte = long & 0xff;
       byteArray[index] = byte;
       long = (long - byte) ~/ 256;
     }
     return byteArray;
-    
+
     // Cleaner implementation but breaks in dart2js/flutter web
     // return Uint8List(8)..buffer.asByteData().setInt64(0, long);
   }
@@ -170,7 +172,8 @@ class OTP {
   static void _showHOTPWarning(Hash mac) {
     if (mac is Sha256 || mac is Sha512) {
       var logger = Logger('otp');
-      logger.warning('Using non-SHA1 hashing with HOTP is not part of the RFC for HOTP and may cause incompatibilities between different library implementatiions. This library attempts to match behavior with other libraries as best it can.');
+      logger.warning(
+          'Using non-SHA1 hashing with HOTP is not part of the RFC for HOTP and may cause incompatibilities between different library implementatiions. This library attempts to match behavior with other libraries as best it can.');
     }
   }
 
