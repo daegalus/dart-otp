@@ -1,5 +1,8 @@
 # Changelog
 
+v2.2.3
+- Improve pub package score
+
 v2.2.2
 - Update quick_log to latest version
 

@@ -1,5 +1,5 @@
 name: otp
-version: 2.2.2
+version: 2.2.3
 description: RFC6238 Time-Based One-Time Password / Google Authenticator Library
 homepage: https://github.com/Daegalus/dart-otp
 environment:
