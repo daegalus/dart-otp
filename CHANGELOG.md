@@ -1,9 +1,9 @@
 # Changelog
 
 v2.2.3
-- Improve pub package score
-- Use const and final instead of var
-- Document public API members
+- Improve pub package score (thanks @DavBfr)
+- Use const and final instead of var (thanks @DavBfr)
+- Document public API members (thanks @DavBfr)
 
 v2.2.2
 - Update quick_log to latest version
