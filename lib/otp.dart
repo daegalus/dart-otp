@@ -3,7 +3,6 @@ library otp;
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:base32/base32.dart';
-import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:logging/logging.dart';
 
@@ -99,7 +98,7 @@ class OTP {
     final hmac = Hmac(mac, secretList);
     final digest = hmac.convert(timebytes).bytes;
 
-    return hex.encode(digest);
+    return _hexEncode(Uint8List.fromList(digest));
   }
 
   /// Allows you to compare 2 codes in constant time, to mitigate timing attacks for secure codes.
@@ -129,6 +128,9 @@ class OTP {
 
     return base32.encode(Uint8List.fromList(bytes));
   }
+
+  static String _hexEncode(final Uint8List input) =>
+      [for (int i = 0; i < input.length; i++) input[i].toRadixString(16).padLeft(2, '0')].join();
 
   static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
