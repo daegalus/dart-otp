@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Daegalus/dart-otp.svg?branch=master)](https://travis-ci.org/Daegalus/dart-otp)
+![Dart](https://github.com/Daegalus/dart-base32/workflows/Dart/badge.svg)
 
 # dart-otp
 
@@ -17,7 +17,7 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 2.2.3
+  otp: 3.0.0-nullsafety.0
 ```
 
 ```dart

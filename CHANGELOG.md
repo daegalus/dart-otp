@@ -1,5 +1,8 @@
 # Changelog
 
+v3.0.0-nullsafety.0
+- Nullsafety conversion
+
 v2.2.3
 - Improve pub package score (thanks @DavBfr)
 - Use const and final instead of var (thanks @DavBfr)

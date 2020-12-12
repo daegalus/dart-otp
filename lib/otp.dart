@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:base32/base32.dart';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
-import 'package:quick_log/quick_log.dart';
+import 'package:logging/logging.dart';
 
 /// RFC4226/RFC6238 One-Time Password / Google Authenticator Library
 class OTP {
@@ -20,13 +20,9 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
   static int generateTOTPCode(String secret, int time,
-      {int length = 6,
-      int interval = 30,
-      Algorithm algorithm = Algorithm.SHA256,
-      bool isGoogle = false}) {
+      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
-    return _generateCode(secret, time, length, getAlgorithm(algorithm),
-        _getAlgorithmByteLength(algorithm),
+    return _generateCode(secret, time, length, getAlgorithm(algorithm), _getAlgorithmByteLength(algorithm),
         isGoogle: isGoogle);
   }
 
@@ -38,10 +34,7 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateTOTPCodeString(String secret, int time,
-      {int length = 6,
-      int interval = 30,
-      Algorithm algorithm = Algorithm.SHA256,
-      bool isGoogle = false}) {
+      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
     final code =
         '${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm, isGoogle: isGoogle)}';
     return code.padLeft(length, '0');
@@ -52,10 +45,8 @@ class OTP {
   /// This function does not increment for you.
   /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
-  static int generateHOTPCode(String secret, int counter,
-      {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
-    return _generateCode(secret, counter, length, getAlgorithm(algorithm),
-        _getAlgorithmByteLength(algorithm),
+  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+    return _generateCode(secret, counter, length, getAlgorithm(algorithm), _getAlgorithmByteLength(algorithm),
         isHOTP: true);
   }
 
@@ -66,13 +57,11 @@ class OTP {
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateHOTPCodeString(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
-    final code =
-        '${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}';
+    final code = '${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}';
     return code.padLeft(length, '0');
   }
 
-  static int _generateCode(
-      String secret, int time, int length, Hash mac, int secretbytes,
+  static int _generateCode(String secret, int time, int length, Hash mac, int secretbytes,
       {bool isHOTP = false, bool isGoogle = false}) {
     length = (length > 0) ? length : 6;
 
@@ -96,13 +85,12 @@ class OTP {
         ((digest[offset + 2] & 0xff) << 8) |
         (digest[offset + 3] & 0xff);
 
-    return binary % pow(10, length);
+    return binary % pow(10, length) as int;
   }
 
   /// Mostly used for testing purposes, but this can get you the internal digest based on your settings.
   /// No handholding for this function, so you need to know exactly what to pass in.
-  static String getInternalDigest(
-      String secret, int counter, int length, Hash mac) {
+  static String getInternalDigest(String secret, int counter, int length, Hash mac) {
     length = (length > 0) ? length : 6;
 
     final secretList = base32.decode(secret);
@@ -117,8 +105,7 @@ class OTP {
   /// Allows you to compare 2 codes in constant time, to mitigate timing attacks for secure codes.
   ///
   /// This function takes 2 codes in string format.
-  static bool constantTimeVerification(
-      final String code, final String othercode) {
+  static bool constantTimeVerification(final String code, final String othercode) {
     if (code.length != othercode.length) {
       return false;
     }
@@ -162,7 +149,7 @@ class OTP {
     if (secret.length == length) return secret;
 
     // ignore: prefer_collection_literals
-    final newList = List<int>();
+    final newList = <int>[];
     for (var i = 0; i * secret.length < length; i++) {
       newList.addAll(secret);
     }
@@ -171,8 +158,8 @@ class OTP {
   }
 
   static void _showHOTPWarning(Hash mac) {
-    if (mac is Sha256 || mac is Sha512) {
-      const logger = Logger('otp');
+    if (mac == sha256 || mac == sha512) {
+      final logger = Logger('otp');
       logger.warning(
           'Using non-SHA1 hashing with HOTP is not part of the RFC for HOTP and may cause incompatibilities between different library implementatiions. This library attempts to match behavior with other libraries as best it can.');
     }
