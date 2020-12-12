@@ -1,4 +1,4 @@
-![Dart](https://github.com/Daegalus/dart-base32/workflows/Dart/badge.svg)
+![Dart](https://github.com/Daegalus/dart-otp/workflows/Dart/badge.svg)
 
 # dart-otp
 
