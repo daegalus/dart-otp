@@ -49,7 +49,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 
 If you enable this, it will use the same padding as TOTP (repeating the secret to the right length) but might cause incompatibilies with other libraries. I am defaulting to no padding, as this is the predominant behavior I am finding for HOTP.
 
-### OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: true})
+### OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: false})
 
 Generate a code for the provided secret and time.
 
@@ -62,7 +62,7 @@ Generate a code for the provided secret and time.
 
 Returns an `int` code. Does not preserve leading zeros.
 
-### OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: true})
+### OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: false})
 
 Generate a code for the provided secret and time.
 
