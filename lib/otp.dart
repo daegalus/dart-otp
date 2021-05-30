@@ -2,6 +2,7 @@ library otp;
 
 import 'dart:math';
 import 'dart:typed_data';
+
 import 'package:base32/base32.dart';
 import 'package:crypto/crypto.dart';
 import 'package:logging/logging.dart';
