@@ -1,6 +1,6 @@
-import 'package:test/test.dart';
-import 'package:otp/otp.dart';
 import 'package:base32/base32.dart';
+import 'package:otp/otp.dart';
+import 'package:test/test.dart';
 
 void main() {
   const HALFMINUTES = 45410085;
