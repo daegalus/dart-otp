@@ -19,9 +19,13 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
   /// These settings are defaulted to the RFC standard but can be changed.
   static int generateTOTPCode(String secret, int time,
-      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
+      {int length = 6,
+      int interval = 30,
+      Algorithm algorithm = Algorithm.SHA256,
+      bool isGoogle = false}) {
     time = (((time ~/ 1000).round()) ~/ interval).floor();
-    return _generateCode(secret, time, length, getAlgorithm(algorithm), _getAlgorithmByteLength(algorithm),
+    return _generateCode(secret, time, length, getAlgorithm(algorithm),
+        _getAlgorithmByteLength(algorithm),
         isGoogle: isGoogle);
   }
 
@@ -33,7 +37,10 @@ class OTP {
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateTOTPCodeString(String secret, int time,
-      {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
+      {int length = 6,
+      int interval = 30,
+      Algorithm algorithm = Algorithm.SHA256,
+      bool isGoogle = false}) {
     final code =
         '${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm, isGoogle: isGoogle)}';
     return code.padLeft(length, '0');
@@ -44,8 +51,10 @@ class OTP {
   /// This function does not increment for you.
   /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
-  static int generateHOTPCode(String secret, int counter, {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
-    return _generateCode(secret, counter, length, getAlgorithm(algorithm), _getAlgorithmByteLength(algorithm),
+  static int generateHOTPCode(String secret, int counter,
+      {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+    return _generateCode(secret, counter, length, getAlgorithm(algorithm),
+        _getAlgorithmByteLength(algorithm),
         isHOTP: true);
   }
 
@@ -56,11 +65,13 @@ class OTP {
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateHOTPCodeString(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
-    final code = '${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}';
+    final code =
+        '${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}';
     return code.padLeft(length, '0');
   }
 
-  static int _generateCode(String secret, int time, int length, Hash mac, int secretbytes,
+  static int _generateCode(
+      String secret, int time, int length, Hash mac, int secretbytes,
       {bool isHOTP = false, bool isGoogle = false}) {
     length = (length > 0) ? length : 6;
 
@@ -89,7 +100,8 @@ class OTP {
 
   /// Mostly used for testing purposes, but this can get you the internal digest based on your settings.
   /// No handholding for this function, so you need to know exactly what to pass in.
-  static String getInternalDigest(String secret, int counter, int length, Hash mac) {
+  static String getInternalDigest(
+      String secret, int counter, int length, Hash mac) {
     length = (length > 0) ? length : 6;
 
     final secretList = base32.decode(secret);
@@ -104,7 +116,8 @@ class OTP {
   /// Allows you to compare 2 codes in constant time, to mitigate timing attacks for secure codes.
   ///
   /// This function takes 2 codes in string format.
-  static bool constantTimeVerification(final String code, final String othercode) {
+  static bool constantTimeVerification(
+      final String code, final String othercode) {
     if (code.length != othercode.length) {
       return false;
     }
@@ -129,8 +142,10 @@ class OTP {
     return base32.encode(Uint8List.fromList(bytes));
   }
 
-  static String _hexEncode(final Uint8List input) =>
-      [for (int i = 0; i < input.length; i++) input[i].toRadixString(16).padLeft(2, '0')].join();
+  static String _hexEncode(final Uint8List input) => [
+        for (int i = 0; i < input.length; i++)
+          input[i].toRadixString(16).padLeft(2, '0')
+      ].join();
 
   static Uint8List _int2bytes(int long) {
     // we want to represent the input as a 8-bytes array
