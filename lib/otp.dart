@@ -16,7 +16,7 @@ class OTP {
   /// Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
   /// A interval of 1 will be the same as if passing time into the HOTPCode function..
   ///
-  /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
+  /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
   /// These settings are defaulted to the RFC standard but can be changed.
   static int generateTOTPCode(String secret, int time,
       {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
@@ -30,7 +30,7 @@ class OTP {
   /// Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
   /// A interval of 1 will be the same as if passing time into the HOTPCode function..
   ///
-  /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA1)
+  /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
   /// These settings are defaulted to the RFC standard but can be changed.
   static String generateTOTPCodeString(String secret, int time,
       {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {

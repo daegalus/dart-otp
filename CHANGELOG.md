@@ -1,5 +1,8 @@
 # Changelog
 
+v3.0.0
+- Docs and file cleanup
+  
 v3.0.0-nullsafety.0
 - Nullsafety conversion
 

@@ -7,7 +7,7 @@ RFC4226/RFC6238 One-Time Password / Google Authenticator Library
 Features:
 
 - Generate TOTP (RFC6238) and HOTP (RFC4226) codes.
-- [Annotated source code](https://daegalus.github.com/dart-otp/api/)
+- [Annotated source code](https://daegalus.github.com/dart-otp/)
 
 ## Getting Started
 
@@ -17,7 +17,7 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 3.0.0-nullsafety.0
+  otp: 3.0.0
 ```
 
 ```dart
@@ -49,7 +49,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 
 If you enable this, it will use the same padding as TOTP (repeating the secret to the right length) but might cause incompatibilies with other libraries. I am defaulting to no padding, as this is the predominant behavior I am finding for HOTP.
 
-### OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: false})
+### OTP.generateTOTPCode(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA256, bool isGoogle: false})
 
 Generate a code for the provided secret and time.
 
@@ -62,7 +62,7 @@ Generate a code for the provided secret and time.
 
 Returns an `int` code. Does not preserve leading zeros.
 
-### OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA1, bool isGoogle: false})
+### OTP.generateTOTPCodeString(String secret, int currentTime, {int length: 6, int interval: 30, Algorithm algorithm: Algorithm.SHA256, bool isGoogle: false})
 
 Generate a code for the provided secret and time.
 
