@@ -12,9 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../../static-assets/github.css">
-  <link rel="stylesheet" href="../../static-assets/styles.css">
-  <link rel="icon" href="../../static-assets/favicon.png">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
 
   
 </head>
@@ -42,6 +43,54 @@
 <main>
 
 
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">generateTOTPCodeString</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/String-class.html">String</a></span>
+<span class="name ">generateTOTPCodeString</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="generateTOTPCodeString-param-secret"><span class="type-annotation"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/String-class.html">String</a></span> <span class="parameter-name">secret</span>, </span></li>
+<li><span class="parameter" id="generateTOTPCodeString-param-time"><span class="type-annotation"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/int-class.html">int</a></span> <span class="parameter-name">time</span>, </span></li>
+<li><span class="parameter" id="generateTOTPCodeString-param-length">{<span class="type-annotation"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/int-class.html">int</a></span> <span class="parameter-name">length</span> = <span class="default-value">6</span>, </span></li>
+<li><span class="parameter" id="generateTOTPCodeString-param-interval"><span class="type-annotation"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/int-class.html">int</a></span> <span class="parameter-name">interval</span> = <span class="default-value">30</span>, </span></li>
+<li><span class="parameter" id="generateTOTPCodeString-param-algorithm"><span class="type-annotation"><a href="../../otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span> = <span class="default-value">Algorithm.SHA256</span>, </span></li>
+<li><span class="parameter" id="generateTOTPCodeString-param-isGoogle"><span class="type-annotation"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isGoogle</span> = <span class="default-value">false</span>}</span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Generates a Time-based one time password code and return as a 0 padded string.</p>
+<p>Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
+A interval of 1 will be the same as if passing time into the HOTPCode function..</p>
+<p>Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
+These settings are defaulted to the RFC standard but can be changed.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static String generateTOTPCodeString(String secret, int time,
+    {int length = 6,
+    int interval = 30,
+    Algorithm algorithm = Algorithm.SHA256,
+    bool isGoogle = false}) {
+  final code =
+      &#39;${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm, isGoogle: isGoogle)}&#39;;
+  return code.padLeft(length, &#39;0&#39;);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
@@ -67,18 +116,20 @@
     <li class="section-title inherited">
       <a href="../../otp/OTP-class.html#instance-properties">Properties</a>
     </li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
     <li class="section-title inherited"><a href="../../otp/OTP-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.1/dart-core/Object/toString.html">toString</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../../otp/OTP-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.13.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/dev/2.14.0-152.0.dev/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
     <li class="section-title"><a href="../../otp/OTP-class.html#static-properties">Static properties</a></li>
+    <li><a href="../../otp/OTP/lastUsedCounter.html">lastUsedCounter</a></li>
+    <li><a href="../../otp/OTP/lastUsedTime.html">lastUsedTime</a></li>
     <li><a href="../../otp/OTP/useTOTPPaddingForHOTP.html">useTOTPPaddingForHOTP</a></li>
 
     <li class="section-title"><a href="../../otp/OTP-class.html#static-methods">Static methods</a></li>
@@ -95,51 +146,6 @@
 
   </div><!--/.sidebar-offcanvas-->
 
-  <div id="dartdoc-main-content" class="main-content">
-      <div>
-<h1><span class="kind-method">generateTOTPCodeString</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
-</h1></div>
-
-    <section class="multi-line-signature">
-      
-
-<span class="returntype"><a href="https://api.dart.dev/stable/2.13.1/dart-core/String-class.html">String</a></span>
-<span class="name ">generateTOTPCodeString</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="generateTOTPCodeString-param-secret"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.1/dart-core/String-class.html">String</a></span> <span class="parameter-name">secret</span>, </span></li>
-<li><span class="parameter" id="generateTOTPCodeString-param-time"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">time</span>, </span></li>
-<li><span class="parameter" id="generateTOTPCodeString-param-length">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">length</span> = <span class="default-value">6</span>, </span></li>
-<li><span class="parameter" id="generateTOTPCodeString-param-interval"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">interval</span> = <span class="default-value">30</span>, </span></li>
-<li><span class="parameter" id="generateTOTPCodeString-param-algorithm"><span class="type-annotation"><a href="../../otp/Algorithm-class.html">Algorithm</a></span> <span class="parameter-name">algorithm</span> = <span class="default-value">Algorithm.SHA256</span>, </span></li>
-<li><span class="parameter" id="generateTOTPCodeString-param-isGoogle"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.13.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isGoogle</span> = <span class="default-value">false</span>}</span></li>
-</ol>)
-
-      
-
-    </section>
-    
-<section class="desc markdown">
-  <p>Generates a Time-based one time password code and return as a 0 padded string.</p>
-<p>Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
-A interval of 1 will be the same as if passing time into the HOTPCode function..</p>
-<p>Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
-These settings are defaulted to the RFC standard but can be changed.</p>
-</section>
-
-
-    
-<section class="summary source-code" id="source">
-  <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static String generateTOTPCodeString(String secret, int time,
-    {int length = 6, int interval = 30, Algorithm algorithm = Algorithm.SHA256, bool isGoogle = false}) {
-  final code =
-      &#39;${generateTOTPCode(secret, time, length: length, interval: interval, algorithm: algorithm, isGoogle: isGoogle)}&#39;;
-  return code.padLeft(length, &#39;0&#39;);
-}</code></pre>
-</section>
-
-
-  </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
 
@@ -148,15 +154,16 @@ These settings are defaulted to the RFC standard but can be changed.</p>
 <footer>
   <span class="no-break">
     otp
-      3.0.0
+      3.0.1
   </span>
 
   
 </footer>
 
 
-<script src="../../static-assets/highlight.pack.js"></script>
-<script src="../../static-assets/script.js"></script>
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
 
 
 

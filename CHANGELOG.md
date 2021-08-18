@@ -1,5 +1,8 @@
 # Changelog
 
+v3.0.1
+- Add lastUsedTime and lastUsedCounter to provide additional information for users and potential debugging points.
+
 v3.0.0
 - Docs and file cleanup
   

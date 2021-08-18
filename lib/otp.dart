@@ -12,6 +12,12 @@ class OTP {
   /// Used to enable TOTP style padding of the secret for SHA256 and SHA512 usage with HOTP. False by default.
   static bool useTOTPPaddingForHOTP = false;
 
+  /// Has the last used timestamp for TOTP codes, should match what you passed into the functions last.
+  static int lastUsedTime = 0;
+
+  /// Has the last used counter for HOTP and TOTP codes. TOTP codes are Milliseconds / 1000 / interval (default 30)
+  static int lastUsedCounter = 0;
+
   /// Generates a Time-based one time password code
   ///
   /// Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
@@ -24,6 +30,7 @@ class OTP {
       int interval = 30,
       Algorithm algorithm = Algorithm.SHA256,
       bool isGoogle = false}) {
+    lastUsedTime = time;
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm),
         _getAlgorithmByteLength(algorithm),
@@ -74,6 +81,7 @@ class OTP {
   static int _generateCode(
       String secret, int time, int length, Hash mac, int secretbytes,
       {bool isHOTP = false, bool isGoogle = false}) {
+    lastUsedCounter = time;
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);

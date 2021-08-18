@@ -70,6 +70,24 @@ void main() {
       expect(code, equals('637305'));
     });
 
+    test(
+        'Generated code for Sun Mar 03 09:22:30 2013 +0000 as String time validation',
+        () {
+      final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
+      final time = OTP.lastUsedTime;
+      expect(time, TIME);
+      expect(code, equals('637305'));
+    });
+
+    test(
+        'Generated code for Sun Mar 03 09:22:30 2013 +0000 as String counter validation',
+        () {
+      final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
+      final counter = OTP.lastUsedCounter;
+      expect(counter, (TIME ~/ 1000 ~/ 30).floor());
+      expect(code, equals('637305'));
+    });
+
     test('Verify that padding flag for HOTP works.', () {
       final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', 0);
 
@@ -119,8 +137,8 @@ void main() {
       w.stop();
       final diff2 = w.elapsedMicroseconds;
 
-      print('resultDifferent: $diff1');
-      print('resultSame: $diff2');
+      //print('resultDifferent: $diff1');
+      //print('resultSame: $diff2');
       expect(resultSame, equals(true));
       expect(resultDifferent, equals(false));
       expect((diff1 - diff2).abs() < 5,
