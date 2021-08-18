@@ -7,7 +7,7 @@ RFC4226/RFC6238 One-Time Password / Google Authenticator Library
 Features:
 
 - Generate TOTP (RFC6238) and HOTP (RFC4226) codes.
-- [Annotated source code](https://daegalus.github.com/dart-otp/)
+- [Annotated source code](https://daegalus.github.io/dart-otp/)
 
 ## Getting Started
 
