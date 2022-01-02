@@ -18,9 +18,6 @@ class OTP {
   /// Has the last used counter for HOTP and TOTP codes. TOTP codes are Milliseconds / 1000 / interval (default 30)
   static int lastUsedCounter = 0;
 
-  ///That will tell you how much time remains in the current time step window in seconds
-  static int remainingSeconds = 0;
-
   /// Generates a Time-based one time password code
   ///
   /// Takes current time in milliseconds, converts to seconds and devides it by interval to get a code every iteration of the interval.
@@ -34,7 +31,6 @@ class OTP {
       Algorithm algorithm = Algorithm.SHA256,
       bool isGoogle = false}) {
     lastUsedTime = time;
-    remainingSeconds = interval - (((time ~/ 1000).round()) % interval).floor();
     time = (((time ~/ 1000).round()) ~/ interval).floor();
     return _generateCode(secret, time, length, getAlgorithm(algorithm),
         _getAlgorithmByteLength(algorithm),
@@ -153,6 +149,12 @@ class OTP {
     }
 
     return base32.encode(Uint8List.fromList(bytes));
+  }
+
+  ///There is a method that will tell you how much time remains in the current time step window in seconds.
+  ///Interval is your TOTP function interval value (default = 30)
+  static int remainingSeconds({int interval = 30}) {
+    return interval - (((lastUsedTime ~/ 1000).round()) % interval).floor();
   }
 
   static String _hexEncode(final Uint8List input) => [
