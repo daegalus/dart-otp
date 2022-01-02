@@ -21,4 +21,10 @@ void main() {
 
   final code5 = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', 1362302550000);
   print(code5);
+
+  final code6 = OTP.generateTOTPCodeString(
+      'JBSWY3DPEHPK3PXP', DateTime.now().millisecondsSinceEpoch,
+      interval: 60);
+  print(code6);
+  print(OTP.remainingSeconds);
 }
