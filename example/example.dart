@@ -26,5 +26,10 @@ void main() {
       'JBSWY3DPEHPK3PXP', DateTime.now().millisecondsSinceEpoch,
       interval: 60);
   print(code6);
-  print(OTP.remainingSeconds);
+  print(OTP.remainingSeconds(interval: 60));
+
+  final code7 = OTP.generateTOTPCodeString(
+      'JBSWY3DPEHPK3PXP', DateTime.now().millisecondsSinceEpoch);
+  print(code7);
+  print(OTP.remainingSeconds());
 }
