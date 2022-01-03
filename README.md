@@ -17,7 +17,7 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 3.0.1
+  otp: 3.0.2
 ```
 
 ```dart
@@ -107,6 +107,14 @@ Compares 2 codes in constant time to minimize risk of timing attacks.
 - `othercode` - (String) A Base32 String.
 
 Returns an `bool` if they match or not.
+
+### OTP.remainingSeconds({int interval = 30})
+
+This will return the remaining seconds based on the `lastUsedTime` variable, that is only set when using `generateTOTP*` functions.
+
+- `interval` - (int) The interval you are using for your codes, defaults to the standard 30 seconds.
+
+Returns an `int` of the remaining seconds.
 
 ## Testing
 

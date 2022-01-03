@@ -151,8 +151,8 @@ class OTP {
     return base32.encode(Uint8List.fromList(bytes));
   }
 
-  ///There is a method that will tell you how much time remains in the current time step window in seconds.
-  ///Interval is your TOTP function interval value (default = 30)
+  /// There is a method that will tell you how much time remains in the current time step window in seconds.
+  /// Interval is your TOTP function interval value (default = 30)
   static int remainingSeconds({int interval = 30}) {
     return interval - (((lastUsedTime ~/ 1000).round()) % interval).floor();
   }

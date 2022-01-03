@@ -1,7 +1,10 @@
 # Changelog
 
+v3.0.2
+- Add `remainingSeconds()` in order to calculate the remaining seconds based on `lastUsedTime`.
+  
 v3.0.1
-- Add lastUsedTime and lastUsedCounter to provide additional information for users and potential debugging points.
+- Add `lastUsedTime` and `lastUsedCounter` to provide additional information for users and potential debugging points.
 
 v3.0.0
 - Docs and file cleanup
