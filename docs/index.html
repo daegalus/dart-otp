@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 0.44.0">
+  <meta name="generator" content="made with love by dartdoc 4.1.0">
   <meta name="description" content="otp API docs, for the Dart programming language.">
   <title>otp - Dart API docs</title>
 
@@ -50,13 +50,13 @@
 <p>Features:</p>
 <ul>
 <li>Generate TOTP (RFC6238) and HOTP (RFC4226) codes.</li>
-<li><a href="https://daegalus.github.com/dart-otp/">Annotated source code</a></li>
+<li><a href="https://daegalus.github.io/dart-otp/">Annotated source code</a></li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
 <h3 id="pubspec">Pubspec</h3>
 <p>pub.dartlang.org: (you can use 'any' instead of a version if you just want the latest always)</p>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  otp: 3.0.0
+  otp: 3.0.2
 </code></pre>
 <pre class="language-dart"><code class="language-dart">import 'package:otp/otp.dart';
 </code></pre>
@@ -124,6 +124,12 @@ I have yet to get them to be equal. but 1 millisecond should be an OK room for e
 <li><code>othercode</code> - (String) A Base32 String.</li>
 </ul>
 <p>Returns an <code>bool</code> if they match or not.</p>
+<h3 id="otpremainingsecondsint-interval--30">OTP.remainingSeconds({int interval = 30})</h3>
+<p>This will return the remaining seconds based on the <code>lastUsedTime</code> variable, that is only set when using <code>generateTOTP*</code> functions.</p>
+<ul>
+<li><code>interval</code> - (int) The interval you are using for your codes, defaults to the standard 30 seconds.</li>
+</ul>
+<p>Returns an <code>int</code> of the remaining seconds.</p>
 <h2 id="testing">Testing</h2>
 <pre class="language-dart"><code>pub run test
 </code></pre>
@@ -175,7 +181,7 @@ I have yet to get them to be equal. but 1 millisecond should be an OK room for e
 <footer>
   <span class="no-break">
     otp
-      3.0.1
+      3.0.2
   </span>
 
   
