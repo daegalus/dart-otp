@@ -90,7 +90,7 @@ class OTP {
 
     var secretList = base32.decode(secret);
     if (secretList.isEmpty) {
-      throw const FormatException('Invalid base32 secret');
+      throw const FormatException('Invalid Base32 characters');
     }
 
     if (!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) {

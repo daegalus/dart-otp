@@ -19,7 +19,7 @@ void main() {
       try {
         OTP.generateTOTPCode('sdfsdf', TIME);
       } on FormatException catch (e, _) {
-        expect(e.message, equals('Invalid base32 secret'));
+        expect(e.message, equals('Invalid Base32 characters'));
       }
     });
 
