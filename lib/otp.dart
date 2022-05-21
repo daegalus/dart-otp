@@ -25,6 +25,7 @@ class OTP {
   ///
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
   /// These settings are defaulted to the RFC standard but can be changed.
+  /// Throws a FormatException if string is not a base32 secret.
   static int generateTOTPCode(String secret, int time,
       {int length = 6,
       int interval = 30,
@@ -44,6 +45,7 @@ class OTP {
   ///
   /// Optional parameters to change the length of the code provided (default 6), interval (default 30), and hashing algorithm (default SHA256)
   /// These settings are defaulted to the RFC standard but can be changed.
+  /// Throws a FormatException if string is not a base32 secret.
   static String generateTOTPCodeString(String secret, int time,
       {int length = 6,
       int interval = 30,
@@ -59,6 +61,7 @@ class OTP {
   /// This function does not increment for you.
   /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
+  /// Throws a FormatException if string is not a base32 secret.
   static int generateHOTPCode(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm),
@@ -71,6 +74,7 @@ class OTP {
   /// This function does not increment for you.
   /// Optional parameters to change the length of the code provided (default 6) and hashing algorithm (default SHA1)
   /// These settings are defaulted to the RFC standard but can be changed.
+  /// Throws a FormatException if string is not a base32 secret.
   static String generateHOTPCodeString(String secret, int counter,
       {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
     final code =
@@ -86,7 +90,7 @@ class OTP {
 
     var secretList = base32.decode(secret);
     if (secretList.isEmpty) {
-      secretList = Uint8List.fromList(secret.codeUnits);
+      throw const FormatException('Invalid base32 secret');
     }
 
     if (!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) {

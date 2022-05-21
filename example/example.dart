@@ -40,6 +40,6 @@ void main() {
 
   final code9 = OTP.generateTOTPCodeString(
       'sdfsdf', DateTime.now().millisecondsSinceEpoch,
-      algorithm: Algorithm.SHA1);
+      algorithm: Algorithm.SHA1); // This should throw an exception.
   print(code9);
 }

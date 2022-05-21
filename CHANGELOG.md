@@ -1,5 +1,8 @@
 # Changelog
 
+v3.0.4
+- Partially change behavior, if it is invalid Base32, it should throw, but in certain cases, it still doesn't throw, so we do fallback behavior.
+  
 v3.0.3
 - Fix when secrets are not Base32 causing infinite loops because the resulting list is size 0.
 - Don't assume Base32, use the secret as is if not base32.

@@ -15,11 +15,12 @@ void main() {
       expect(code, equals(637305));
     });
 
-    test(
-        'Generated code for Sun Mar 03 09:22:30 2013 +0000 using default algorithm and length, but non-base32 secret',
-        () {
-      final code = OTP.generateTOTPCode('sdfsdf', TIME);
-      expect(code, equals(591233));
+    test('Throw error on non-base32 secret', () {
+      try {
+        OTP.generateTOTPCode('sdfsdf', TIME);
+      } on FormatException catch (e, _) {
+        expect(e.message, equals('Invalid base32 secret'));
+      }
     });
 
     test(
