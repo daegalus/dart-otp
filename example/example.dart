@@ -39,7 +39,7 @@ void main() {
   print(OTP.remainingSeconds());
 
   final code9 = OTP.generateTOTPCodeString(
-      "sdfsdf", DateTime.now().millisecondsSinceEpoch,
+      'sdfsdf', DateTime.now().millisecondsSinceEpoch,
       algorithm: Algorithm.SHA1);
   print(code9);
 }
