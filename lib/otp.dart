@@ -85,6 +85,9 @@ class OTP {
     length = (length > 0) ? length : 6;
 
     var secretList = base32.decode(secret);
+    if (secretList.isEmpty) {
+      secretList = Uint8List.fromList(secret.codeUnits);
+    }
 
     if (!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) {
       secretList = _padSecret(secretList, secretbytes);
@@ -113,7 +116,10 @@ class OTP {
       String secret, int counter, int length, Hash mac) {
     length = (length > 0) ? length : 6;
 
-    final secretList = base32.decode(secret);
+    var secretList = base32.decode(secret);
+    if (secretList.isEmpty) {
+      secretList = Uint8List.fromList(secret.codeUnits);
+    }
     final timebytes = _int2bytes(counter);
 
     final hmac = Hmac(mac, secretList);
@@ -179,7 +185,7 @@ class OTP {
 
   static Uint8List _padSecret(Uint8List secret, int length) {
     if (secret.length == length) return secret;
-
+    if (secret.isEmpty) return secret;
     // ignore: prefer_collection_literals
     final newList = <int>[];
     for (var i = 0; i * secret.length < length; i++) {

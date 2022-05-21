@@ -32,4 +32,14 @@ void main() {
       'JBSWY3DPEHPK3PXP', DateTime.now().millisecondsSinceEpoch);
   print(code7);
   print(OTP.remainingSeconds());
+
+  final code8 = OTP.generateTOTPCodeString('TULF5VNGGE267KF7BVZ3FGWBB7TELLIL',
+      DateTime.now().millisecondsSinceEpoch);
+  print(code8);
+  print(OTP.remainingSeconds());
+
+  final code9 = OTP.generateTOTPCodeString(
+      "sdfsdf", DateTime.now().millisecondsSinceEpoch,
+      algorithm: Algorithm.SHA1);
+  print(code9);
 }

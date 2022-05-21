@@ -16,6 +16,13 @@ void main() {
     });
 
     test(
+        'Generated code for Sun Mar 03 09:22:30 2013 +0000 using default algorithm and length, but non-base32 secret',
+        () {
+      final code = OTP.generateTOTPCode('sdfsdf', TIME);
+      expect(code, equals(591233));
+    });
+
+    test(
         'Generated code for Sun Mar 03 09:22:30 2013 +0000 using default algorithm and length of 7',
         () {
       final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME + 30000,

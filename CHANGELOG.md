@@ -1,5 +1,9 @@
 # Changelog
 
+v3.0.3
+- Fix when secrets are not Base32 causing infinite loops because the resulting list is size 0.
+- Don't assume Base32, use the secret as is if not base32.
+  
 v3.0.2
 - Add `remainingSeconds()` in order to calculate the remaining seconds based on `lastUsedTime`. (thanks @AkbarAsghari)
   
