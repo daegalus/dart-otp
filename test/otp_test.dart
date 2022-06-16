@@ -125,12 +125,13 @@ void main() {
     test('Verify comparison timing', () {
       final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME);
       final othercode =
-          OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME + 30000);
+          "${OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME + 30000)}";
       final othercodeSame =
           "${OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME)}";
       final w = Stopwatch();
       // cache stopwatch functions to avoid affecting timing.
       w.start();
+      OTP.constantTimeVerification("", "");
       w.stop();
       w.reset();
 
@@ -144,8 +145,8 @@ void main() {
       w.stop();
       final diff2 = w.elapsedMicroseconds;
 
-      //print('resultDifferent: $diff1');
-      //print('resultSame: $diff2');
+      print('resultDifferent: $diff1');
+      print('resultSame: $diff2');
       expect(resultSame, equals(true));
       expect(resultDifferent, equals(false));
       expect((diff1 - diff2).abs() < 5,
