@@ -56,16 +56,16 @@
 <h3 id="pubspec">Pubspec</h3>
 <p>pub.dartlang.org: (you can use 'any' instead of a version if you just want the latest always)</p>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  otp: 3.0.4
+  otp: 3.1.0
 </code></pre>
 <pre class="language-dart"><code class="language-dart">import 'package:otp/otp.dart';
 </code></pre>
 <p>Start generating tokens.</p>
 <pre class="language-dart"><code class="language-dart">// Generate TOTP code. (String versin of function incase of leading 0)
-OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXP", 1362302550000); // -&gt; '637305'
+OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXP", 1362302550000); // -&gt; '505548'
 
 // Generate HOTP Code.
-OTP.generateHOTPCodeString("JBSWY3DPEHPK3PXP", 7); // -&gt; '346239'
+OTP.generateHOTPCodeString("JBSWY3DPEHPK3PXP", 7); // -&gt; '006676'
 </code></pre>
 <h2 id="api">API</h2>
 <h3 id="notes">Notes</h3>
@@ -181,7 +181,7 @@ I have yet to get them to be equal. but 1 millisecond should be an OK room for e
 <footer>
   <span class="no-break">
     otp
-      3.0.4
+      3.1.0
   </span>
 
   
