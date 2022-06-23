@@ -17,7 +17,7 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 3.1.0
+  otp: 3.1.1
 ```
 
 ```dart

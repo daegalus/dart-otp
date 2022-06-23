@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.1
+
+- Loosen version constraint on the `crypto` so that there is no conflict between our library and those requiring 3.0.1 or 3.0.0. `crypto` versions 3.0.1 and 3.0.2 don't affect this library or are just doc/link fixes.
+  
 ## v3.1.0
 
 - Bug where all secrets were being treated as Base32 by default, when RFC default is ASCII. Base32 is only when using Google Authenticator mode. This came about due to even when not using Google, secrets were Base32 encoded anyway by most implementations, so the bug wasn't caught, including my tests where I pre-encoded everything as Base32. (thanks @pt-rick for catching this.)
