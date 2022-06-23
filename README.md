@@ -1,3 +1,5 @@
+MAJOR BEHAVIOR CHANGE IN 3.1.0: [Explanation of Changes from 3.0 to 3.1](https://github.com/Daegalus/dart-otp/wiki/Explanation-of-Changes-from-3.0-to-3.1)
+
 ![Dart](https://github.com/Daegalus/dart-otp/workflows/Dart/badge.svg)
 
 # dart-otp
