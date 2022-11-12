@@ -55,7 +55,8 @@
 <span class="name ">getInternalDigest</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="getInternalDigest-param-secret"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.18.1/dart-core/String-class.html">String</a></span> <span class="parameter-name">secret</span>, </span></li>
 <li><span class="parameter" id="getInternalDigest-param-counter"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.18.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">counter</span>, </span></li>
 <li><span class="parameter" id="getInternalDigest-param-length"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.18.1/dart-core/int-class.html">int</a></span> <span class="parameter-name">length</span>, </span></li>
-<li><span class="parameter" id="getInternalDigest-param-mac"><span class="type-annotation"><a href="https://pub.dev/documentation/crypto/3.0.1/crypto/Hash-class.html">Hash</a></span> <span class="parameter-name">mac</span></span></li>
+<li><span class="parameter" id="getInternalDigest-param-mac"><span class="type-annotation"><a href="https://pub.dev/documentation/crypto/3.0.1/crypto/Hash-class.html">Hash</a></span> <span class="parameter-name">mac</span>, </span></li>
+<li><span class="parameter" id="getInternalDigest-param-isGoogle">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.18.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isGoogle</span> = <span class="default-value">false</span>}</span></li>
 </ol>)
 
       
@@ -72,12 +73,13 @@ No handholding for this function, so you need to know exactly what to pass in.</
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">static String getInternalDigest(
-    String secret, int counter, int length, Hash mac) {
+    String secret, int counter, int length, Hash mac,
+    {bool isGoogle = false}) {
   length = (length &gt; 0) ? length : 6;
 
-  var secretList = base32.decode(secret);
-  if (secretList.isEmpty) {
-    secretList = Uint8List.fromList(secret.codeUnits);
+  var secretList = Uint8List.fromList(utf8.encode(secret));
+  if (isGoogle) {
+    secretList = base32.decode(secret);
   }
   final timebytes = _int2bytes(counter);
 
@@ -155,7 +157,7 @@ No handholding for this function, so you need to know exactly what to pass in.</
 <footer>
   <span class="no-break">
     otp
-      3.0.4
+      3.1.1
   </span>
 
   

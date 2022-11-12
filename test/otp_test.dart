@@ -1,4 +1,3 @@
-import 'package:base32/base32.dart';
 import 'package:otp/otp.dart';
 import 'package:test/test.dart';
 
@@ -12,13 +11,13 @@ void main() {
         'Generated code for Sun Mar 03 09:22:30 2013 +0000 using default algorithm and length',
         () {
       final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME);
-      expect(code, equals(637305));
+      expect(code, equals(505548));
     });
 
     test('Throw error on non-base32 secret', () {
       try {
         OTP.generateTOTPCode('sdfsdf', TIME);
-      } on FormatException catch (e, _) {
+      } on FormatException catch (e) {
         expect(e.message, equals('Invalid Base32 characters'));
       }
     });
@@ -29,18 +28,18 @@ void main() {
       final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME + 30000,
           length:
               7); // Need to adjust by 30 seconds, as the original code only had 6 digits and would normally be padded with 0s
-      expect(code, equals(1203843));
+      expect(code, equals(7571013));
     });
 
     test('Generated code for counter 7 using SHA256', () {
       final code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7,
           algorithm: Algorithm.SHA256);
-      expect(code, equals(346239));
+      expect(code, equals(75389));
     });
 
     test('Generated code for counter 7 using SHA1', () {
       final code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7);
-      expect(code, equals(449891));
+      expect(code, equals(6676));
     });
 
     test('Verify isGoogle is passed along to disable padding', () {
@@ -58,24 +57,24 @@ void main() {
         () {
       final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
           algorithm: Algorithm.SHA1);
-      expect(code, equals(345785));
+      expect(code, equals(492280));
     });
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA256', () {
       final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
           algorithm: Algorithm.SHA256);
-      expect(code, equals(637305));
+      expect(code, equals(505548));
     });
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 using SHA512', () {
       final code = OTP.generateTOTPCode('JBSWY3DPEHPK3PXP', TIME,
           algorithm: Algorithm.SHA512);
-      expect(code, equals(402314));
+      expect(code, equals(922649));
     });
 
     test('Generated code for Sun Mar 03 09:22:30 2013 +0000 as String', () {
       final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
-      expect(code, equals('637305'));
+      expect(code, equals('505548'));
     });
 
     test(
@@ -84,7 +83,7 @@ void main() {
       final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
       final time = OTP.lastUsedTime;
       expect(time, TIME);
-      expect(code, equals('637305'));
+      expect(code, equals('505548'));
     });
 
     test(
@@ -93,7 +92,7 @@ void main() {
       final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
       final counter = OTP.lastUsedCounter;
       expect(counter, (TIME ~/ 1000 ~/ 30).floor());
-      expect(code, equals('637305'));
+      expect(code, equals('505548'));
     });
 
     test('Verify that padding flag for HOTP works.', () {
@@ -132,12 +131,13 @@ void main() {
     test('Verify comparison timing', () {
       final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME);
       final othercode =
-          OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME + 30000);
+          "${OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME + 30000)}";
       final othercodeSame =
           "${OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXZ', TIME)}";
       final w = Stopwatch();
       // cache stopwatch functions to avoid affecting timing.
       w.start();
+      OTP.constantTimeVerification("", "");
       w.stop();
       w.reset();
 
@@ -151,8 +151,8 @@ void main() {
       w.stop();
       final diff2 = w.elapsedMicroseconds;
 
-      //print('resultDifferent: $diff1');
-      //print('resultSame: $diff2');
+      print('resultDifferent: $diff1');
+      print('resultSame: $diff2');
       expect(resultSame, equals(true));
       expect(resultDifferent, equals(false));
       expect((diff1 - diff2).abs() < 5,
@@ -189,15 +189,14 @@ void main() {
 
     for (var i = 0; i < digests.length; i++) {
       const secret = '12345678901234567890';
-      final secretEncoded = base32.encodeString(secret);
       final digest = digests[i];
       final token = tokens[i];
 
       test('Counter: $i | Token $token | Digest $digest', () {
-        final code = OTP.generateHOTPCodeString(secretEncoded, i,
-            algorithm: Algorithm.SHA1);
+        final code =
+            OTP.generateHOTPCodeString(secret, i, algorithm: Algorithm.SHA1);
         final internal = OTP.getInternalDigest(
-            secretEncoded, i, 6, OTP.getAlgorithm(Algorithm.SHA1));
+            secret, i, 6, OTP.getAlgorithm(Algorithm.SHA1));
         expect(internal, equals(digest));
         expect(code, equals(token));
       });
@@ -326,11 +325,9 @@ void main() {
       test(
           'Epoch: $epoch | Counter: $counter | Token: $token | Algorithm: $algorithm',
           () {
-        final secretEncoded = base32.encodeString(secret);
-
         final time = epoch * 1000;
 
-        final code = OTP.generateTOTPCodeString(secretEncoded, time,
+        final code = OTP.generateTOTPCodeString(secret, time,
             algorithm: algorithm, length: 8);
 
         expect(code, equals(token), reason: 'TOTP eq rfc dataset');

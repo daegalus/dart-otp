@@ -1,5 +1,6 @@
 library otp;
 
+import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -92,9 +93,9 @@ class OTP {
     lastUsedCounter = time;
     length = (length > 0) ? length : 6;
 
-    var secretList = base32.decode(secret);
-    if (secretList.isEmpty) {
-      throw const FormatException('Invalid Base32 characters');
+    var secretList = Uint8List.fromList(utf8.encode(secret));
+    if (isGoogle) {
+      secretList = base32.decode(secret);
     }
 
     if (isHOTP && isGoogle) {
@@ -125,12 +126,13 @@ class OTP {
   /// Mostly used for testing purposes, but this can get you the internal digest based on your settings.
   /// No handholding for this function, so you need to know exactly what to pass in.
   static String getInternalDigest(
-      String secret, int counter, int length, Hash mac) {
+      String secret, int counter, int length, Hash mac,
+      {bool isGoogle = false}) {
     length = (length > 0) ? length : 6;
 
-    var secretList = base32.decode(secret);
-    if (secretList.isEmpty) {
-      secretList = Uint8List.fromList(secret.codeUnits);
+    var secretList = Uint8List.fromList(utf8.encode(secret));
+    if (isGoogle) {
+      secretList = base32.decode(secret);
     }
     final timebytes = _int2bytes(counter);
 
@@ -196,7 +198,7 @@ class OTP {
   }
 
   static Uint8List _padSecret(Uint8List secret, int length) {
-    if (secret.length == length) return secret;
+    if (secret.length >= length) return secret;
     if (secret.isEmpty) return secret;
     // ignore: prefer_collection_literals
     final newList = <int>[];

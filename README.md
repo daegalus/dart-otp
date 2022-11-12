@@ -1,3 +1,5 @@
+MAJOR BEHAVIOR CHANGE IN 3.1.0: [Explanation of Changes from 3.0 to 3.1](https://github.com/Daegalus/dart-otp/wiki/Explanation-of-Changes-from-3.0-to-3.1)
+
 ![Dart](https://github.com/Daegalus/dart-otp/workflows/Dart/badge.svg)
 
 # dart-otp
@@ -17,7 +19,7 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 3.0.5
+  otp: 3.1.1
 ```
 
 ```dart
@@ -28,10 +30,10 @@ Start generating tokens.
 
 ```dart
 // Generate TOTP code. (String versin of function incase of leading 0)
-OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXP", 1362302550000); // -> '637305'
+OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXP", 1362302550000); // -> '505548'
 
 // Generate HOTP Code.
-OTP.generateHOTPCodeString("JBSWY3DPEHPK3PXP", 7); // -> '346239'
+OTP.generateHOTPCodeString("JBSWY3DPEHPK3PXP", 7); // -> '006676'
 ```
 
 ## API
