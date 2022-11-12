@@ -63,10 +63,12 @@ class OTP {
   /// These settings are defaulted to the RFC standard but can be changed.
   /// Throws a FormatException if string is not a base32 secret.
   static int generateHOTPCode(String secret, int counter,
-      {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+      {int length = 6,
+      Algorithm algorithm = Algorithm.SHA1,
+      bool isGoogle = false}) {
     return _generateCode(secret, counter, length, getAlgorithm(algorithm),
         _getAlgorithmByteLength(algorithm),
-        isHOTP: true);
+        isHOTP: true, isGoogle: isGoogle);
   }
 
   /// Generates a one time password code based on a counter you provide and increment, returns as a 0 padded string.
@@ -76,9 +78,11 @@ class OTP {
   /// These settings are defaulted to the RFC standard but can be changed.
   /// Throws a FormatException if string is not a base32 secret.
   static String generateHOTPCodeString(String secret, int counter,
-      {int length = 6, Algorithm algorithm = Algorithm.SHA1}) {
+      {int length = 6,
+      Algorithm algorithm = Algorithm.SHA1,
+      bool isGoogle = false}) {
     final code =
-        '${generateHOTPCode(secret, counter, length: length, algorithm: algorithm)}';
+        '${generateHOTPCode(secret, counter, length: length, algorithm: algorithm, isGoogle: isGoogle)}';
     return code.padLeft(length, '0');
   }
 
@@ -91,6 +95,10 @@ class OTP {
     var secretList = base32.decode(secret);
     if (secretList.isEmpty) {
       throw const FormatException('Invalid Base32 characters');
+    }
+
+    if (isHOTP && isGoogle) {
+      secretList = _padSecret(secretList, secretbytes);
     }
 
     if (!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) {

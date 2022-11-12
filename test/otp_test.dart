@@ -109,6 +109,12 @@ void main() {
       expect(code, isNot(equals(hcode)), reason: 'TOTP neq HOTP');
     });
 
+    test('Generated code for counter 7 using SHA256 and isGoogle', () {
+      final code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7,
+          algorithm: Algorithm.SHA256, isGoogle: true);
+      expect(code, equals(402500));
+    });
+
     test('Verify comparison works', () {
       final code = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
       final othercode = OTP.generateTOTPCodeString('JBSWY3DPEHPK3PXP', TIME);
@@ -327,11 +333,6 @@ void main() {
         final code = OTP.generateTOTPCodeString(secretEncoded, time,
             algorithm: algorithm, length: 8);
 
-        //OTP.useTOTPPaddingForHOTP = true;
-        //var hcode = OTP.generateHOTPCodeString(secretEncoded, counter, algorithm: algorithm, length: 8);
-        //OTP.useTOTPPaddingForHOTP = false;
-        //expect(code, equals(hcode), reason: 'TOTP eq HOTP');
-        //expect(hcode, equals(token), reason: 'HOTP eq rfc dataset');
         expect(code, equals(token), reason: 'TOTP eq rfc dataset');
       });
     }

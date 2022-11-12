@@ -1,5 +1,8 @@
 # Changelog
 
+v3.0.5
+- Allow isGoogle flag for HOTP
+
 v3.0.4
 - Partially change behavior, if it is invalid Base32, it should throw, but in certain cases, it still doesn't throw, so we do fallback behavior.
   
