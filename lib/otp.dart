@@ -98,8 +98,7 @@ class OTP {
       secretList = base32.decode(secret);
     }
 
-    if ((!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) ||
-        (isHOTP && isGoogle)) {
+    if (!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) {
       secretList = _padSecret(secretList, secretbytes);
     } else if (isHOTP && !isGoogle) {
       _showHOTPWarning(mac);

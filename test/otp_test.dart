@@ -111,7 +111,7 @@ void main() {
     test('Generated code for counter 7 using SHA256 and isGoogle', () {
       final code = OTP.generateHOTPCode('JBSWY3DPEHPK3PXP', 7,
           algorithm: Algorithm.SHA256, isGoogle: true);
-      expect(code, equals(402500));
+      expect(code, equals(346239));
     });
 
     test('Verify comparison works', () {

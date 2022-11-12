@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.3
+
+- Fix incorrect padding logic for isGoogle HOTP
+
 ## v3.1.2
 
 - Allow isGoogle flag for HOTP
