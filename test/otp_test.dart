@@ -332,6 +332,18 @@ void main() {
 
         expect(code, equals(token), reason: 'TOTP eq rfc dataset');
       });
+
+      test('Allow lowercase Base32 string if isGoogle is set to true', () {
+        final code = OTP.generateTOTPCodeString(
+          'kzvvz2s2ylhdmxzk',
+          1679772523111,
+          algorithm: Algorithm.SHA1,
+          interval: 30,
+          length: 6,
+          isGoogle: true,
+        );
+        expect(code, equals('869063'));
+      });
     }
   });
 }

@@ -95,7 +95,7 @@ class OTP {
 
     var secretList = Uint8List.fromList(utf8.encode(secret));
     if (isGoogle) {
-      secretList = base32.decode(secret);
+      secretList = base32.decode(secret.toUpperCase());
     }
 
     if (!isGoogle && (!isHOTP || useTOTPPaddingForHOTP)) {
