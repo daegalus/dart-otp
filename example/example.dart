@@ -1,8 +1,17 @@
 import 'package:otp/otp.dart';
+import 'package:timezone/data/latest.dart' as timezone;
+import 'package:timezone/timezone.dart' as timezone;
 
 void main() {
+  final now = DateTime.now();
+  timezone.initializeTimeZones();
+
+  final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
+  final date = timezone.TZDateTime.from(now, pacificTimeZone);
+
   final code = OTP.generateTOTPCodeString(
-      'JBSWY3DPEHPK3PXP', DateTime.now().millisecondsSinceEpoch);
+      'JBSWY3DPEHPK3PXP', date.millisecondsSinceEpoch,
+      algorithm: Algorithm.SHA1, isGoogle: true);
   print(code);
 
   final code2 = OTP.generateTOTPCodeString(

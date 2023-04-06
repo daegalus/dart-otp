@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.4
+
+- Fix case issues when using isGoogle:true (Thanks @amadejkastelic)
+
 ## v3.1.3
 
 - Fix incorrect padding logic for isGoogle HOTP
