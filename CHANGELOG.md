@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.2.0
+
+- Update timezone to 0.10.0 (Thanks @NiM4iK)
+- Some minor cleanup
+
 ## v3.1.4
 
 - Fix case issues when using isGoogle:true (Thanks @amadejkastelic)

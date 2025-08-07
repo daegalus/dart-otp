@@ -11,25 +11,21 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">otp</a></li>
-    <li><a href="../../otp/otp-library.html">otp</a></li>
+    <li><a href="../../otp/">otp.dart</a></li>
     <li><a href="../../otp/Algorithm.html">Algorithm</a></li>
     <li class="self-crumb">values constant</li>
   </ol>
@@ -37,111 +33,75 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
-        brightness_4
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
-  <div id="dartdoc-main-content" class="main-content">
-      <div>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="otp&#47;Algorithm-enum-sidebar.html"
+    data-below-sidebar="">
+    <div>
 <h1><span class="kind-property">values</span> constant 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
-        <section class="multi-line-signature">
-          
-          <a href="https://api.dart.dev/stable/2.19.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../otp/Algorithm.html">Algorithm</a></span>&gt;</span>
-          const <span class="name ">values</span>
-          
-
-        </section>
+    
+      <section class="multi-line-signature">
         
+        <a href="https://api.dart.dev/stable/3.8.3/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../otp/Algorithm.html">Algorithm</a></span>&gt;</span>
+        const <span class="name ">values</span>
+        
+
+      </section>
+      
 <section class="desc markdown">
   <p>A constant List of the values in this enum, in order of their declaration.</p>
 </section>
 
-        
+      
 
 
-  </div> <!-- /.main-content -->
-
-  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../../index.html">otp</a></li>
-  <li><a href="../../otp/otp-library.html">otp</a></li>
-  <li><a href="../../otp/Algorithm.html">Algorithm</a></li>
-  <li class="self-crumb">values constant</li>
+    <li><a href="../../index.html">otp</a></li>
+    <li><a href="../../otp/">otp</a></li>
+    <li><a href="../../otp/Algorithm.html">Algorithm</a></li>
+    <li class="self-crumb">values constant</li>
 </ol>
 
-
-    <h5>Algorithm enum</h5>
-    <ol>
-
-        <li class="section-title"><a href="../../otp/Algorithm.html#constructors">Constructors</a></li>
-          <li><a href="../../otp/Algorithm/Algorithm.html">Algorithm</a></li>
-
-        <li class="section-title"><a href="../../otp/Algorithm.html#values">Values</a></li>
-          <li><a href="../../otp/Algorithm.html#SHA1">SHA1</a></li>
-          <li><a href="../../otp/Algorithm.html#SHA256">SHA256</a></li>
-          <li><a href="../../otp/Algorithm.html#SHA512">SHA512</a></li>
-
-        <li class="section-title inherited">
-          <a href="../../otp/Algorithm.html#instance-properties">Properties</a>
-        </li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.3/dart-core/Object/hashCode.html">hashCode</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.3/dart-core/Enum/index.html">index</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.3/dart-core/Object/runtimeType.html">runtimeType</a></li>
-
-        <li class="section-title inherited"><a href="../../otp/Algorithm.html#instance-methods">Methods</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.3/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.3/dart-core/Object/toString.html">toString</a></li>
-
-        <li class="section-title inherited"><a href="../../otp/Algorithm.html#operators">Operators</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.3/dart-core/Object/operator_equals.html">operator ==</a></li>
-
-
-
-
-        <li class="section-title"><a href="../../otp/Algorithm.html#constants">Constants</a></li>
-          <li><a href="../../otp/Algorithm/values-constant.html">values</a></li>
-</ol>
-
-  </div><!--/.sidebar-offcanvas-->
-
-  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-  </div><!--/.sidebar-offcanvas-->
-
+  <h5>Algorithm enum</h5>
+  <div id="dartdoc-sidebar-left-content"></div>
+</div><!--/.sidebar-offcanvas-->
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
 </main>
-
 <footer>
   <span class="no-break">
     otp
-      3.1.4
+      3.2.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 

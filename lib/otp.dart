@@ -222,8 +222,6 @@ class OTP {
         return sha512;
       case Algorithm.SHA1:
         return sha1;
-      default:
-        return sha256;
     }
   }
 
@@ -236,8 +234,6 @@ class OTP {
         return 64;
       case Algorithm.SHA1:
         return 20;
-      default:
-        return 32; // For SHA256
     }
   }
 }

@@ -19,7 +19,7 @@ pub.dartlang.org: (you can use 'any' instead of a version if you just want the l
 
 ```yaml
 dependencies:
-  otp: 3.1.2
+  otp: 3.2.0
 ```
 
 ```dart
@@ -120,7 +120,7 @@ Returns an `int` of the remaining seconds.
 
 ## Testing
 
-```
+```sh
 pub run test
 ```
 
