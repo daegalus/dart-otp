@@ -29,7 +29,7 @@ import 'package:otp/otp.dart';
 Start generating tokens.
 
 ```dart
-// Generate TOTP code. (String versin of function incase of leading 0)
+// Generate TOTP code. (String version of function incase of leading 0)
 OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXP", 1362302550000); // -> '505548'
 
 // Generate HOTP Code.
@@ -85,7 +85,7 @@ Generate a code for the provided secret and time.
 - `counter` - (int) An int counter.
 - `length` - (int) the length of the resulting code.
 
-Returns an `int` code. Does not preserve leading zeros
+Returns an `int` code. Does not preserve leading zeros.
 
 ### OTP.generateHOTPCodeString(String secret, int counter, {int length: 6})
 
@@ -95,7 +95,7 @@ Generate a code for the provided secret and time.
 - `counter` - (int) An int counter.
 - `length` - (int) the length of the resulting code.
 
-Returns an `String` code. Preserves leading zeros
+Returns an `String` code. Preserves leading zeros.
 
 ### OTP.constantTimeVerification(final String code, final String othercode)
 
