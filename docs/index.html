@@ -61,7 +61,7 @@
 <pre class="language-dart"><code class="language-dart">import 'package:otp/otp.dart';
 </code></pre>
 <p>Start generating tokens.</p>
-<pre class="language-dart"><code class="language-dart">// Generate TOTP code. (String versin of function incase of leading 0)
+<pre class="language-dart"><code class="language-dart">// Generate TOTP code. (String version of function incase of leading 0)
 OTP.generateTOTPCodeString("JBSWY3DPEHPK3PXP", 1362302550000); // -&gt; '505548'
 
 // Generate HOTP Code.
@@ -105,7 +105,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 <li><code>counter</code> - (int) An int counter.</li>
 <li><code>length</code> - (int) the length of the resulting code.</li>
 </ul>
-<p>Returns an <code>int</code> code. Does not preserve leading zeros</p>
+<p>Returns an <code>int</code> code. Does not preserve leading zeros.</p>
 <h3 id="otpgeneratehotpcodestringstring-secret-int-counter-int-length-6">OTP.generateHOTPCodeString(String secret, int counter, {int length: 6})</h3>
 <p>Generate a code for the provided secret and time.</p>
 <ul>
@@ -113,7 +113,7 @@ This is needed as HOTP does not have an official method of using SHA256 or SHA51
 <li><code>counter</code> - (int) An int counter.</li>
 <li><code>length</code> - (int) the length of the resulting code.</li>
 </ul>
-<p>Returns an <code>String</code> code. Preserves leading zeros</p>
+<p>Returns an <code>String</code> code. Preserves leading zeros.</p>
 <h3 id="otpconstanttimeverificationfinal-string-code-final-string-othercode">OTP.constantTimeVerification(final String code, final String othercode)</h3>
 <p><em>!DISCLAIMER!</em>
 I can only get this to be within 1 millisecond between different codes and same codes.
@@ -175,7 +175,7 @@ I have yet to get them to be equal. but 1 millisecond should be an OK room for e
 <footer>
   <span class="no-break">
     otp
-      3.2.0
+      3.2.1
   </span>
   
 </footer>

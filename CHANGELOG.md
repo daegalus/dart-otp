@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.2.1
+
+- Update timezone to 0.11.0 (Thanks @EdsonMello-code)
+- Other minor cleanup
+
 ## v3.2.0
 
 - Update timezone to 0.10.0 (Thanks @NiM4iK)
